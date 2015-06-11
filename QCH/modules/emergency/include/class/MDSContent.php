@@ -1,0 +1,687 @@
+<?php
+/*
+--------------------------------------------------------------------------------
+HHIMS - Hospital Health Information Management System
+Copyright (c) 2011 Information and Communication Technology Agency of Sri Lanka
+<http: www.hhims.org/>
+----------------------------------------------------------------------------------
+This program is free software: you can redistribute it and/or modify it under the
+terms of the GNU Affero General Public License as published by the Free Software 
+Foundation, either version 3 of the License, or (at your option) any later version.
+
+This program is distributed in the hope that it will be useful,but WITHOUT ANY 
+WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR 
+A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.
+
+You should have received a copy of the GNU Affero General Public License along 
+with this program. If not, see <http://www.gnu.org/licenses/> or write to:
+Free Software  HHIMS
+C/- Lunar Technologies (PVT) Ltd,
+15B Fullerton Estate II,
+Gamagoda, Kalutara, Sri Lanka
+---------------------------------------------------------------------------------- 
+Author: Mr. Thurairajasingam Senthilruban   TSRuban[AT]mdsfoss.org
+Consultant: Dr. Denham Pole                 DrPole[AT]gmail.com
+URL: http: www.hhims.org
+----------------------------------------------------------------------------------
+*/
+
+
+//include_once 'MDSDataBase.php';
+include_once 'MDSPermission.php';
+
+class MDSContent
+{
+	function load($mdsfoss){
+        echo "<div class='content'>";
+		if ($mdsfoss->UG->checkAccess($mdsfoss->Page,$mdsfoss->Action) == NULL) {
+			echo mdsError("You dont have enough permission to view this page!");
+			return NULL;
+		};
+		
+		$mdsPermission = MDSPermission::GetInstance();
+		if ( $mdsfoss->Page == "search" ) {
+			include "include/search.php";
+			echo loadSearchScreen($mdsfoss->Action);
+			return;
+		}
+		else if ( $mdsfoss->Page == "patient" ) {
+			if ($mdsfoss->Action == "View") {
+				if (!$mdsPermission->haveAccess($_SESSION["UGID"],"patient_View")) {
+					echo mdsError("You dont have enough permission to view a patient overview <br> Contact your system Administrator!");
+					return;
+				}			
+				include_once "include/patient.php";
+				echo loadPatientSummary();
+			}
+			else if ($mdsfoss->Action == "Edit") {
+				if (!$mdsPermission->haveAccess($_SESSION["UGID"],"patient_Edit")) {
+					echo mdsError("You dont have enough permission to edit a patient record <br> Contact your system Administrator!");
+					return;
+				}
+				include "include/form.php";
+				echo loadPatientForm("Edit");
+			}
+			else {
+				if (!$mdsPermission->haveAccess($_SESSION["UGID"],"patient_New")) {
+					echo mdsError("You dont have enough permission to create a patient <br> Contact your system Administrator!");
+					return;
+				}
+				include "include/form.php";
+				echo loadPatientForm("New");
+			}			
+			//return;
+		}
+		else if ( $mdsfoss->Page == "opd" ) {
+			if ($mdsfoss->Action == "View") {
+				if (!$mdsPermission->haveAccess($_SESSION["UGID"],"opd_visit_View")) {
+					echo mdsError("You dont have enough permission to read a 'Visit' <br> Contact your system Administrator!");
+					return;
+				}
+				include "include/opd.php";
+				echo loadOPDSummary();
+			}
+			else if ($mdsfoss->Action == "Edit") {
+				if (!$mdsPermission->haveAccess($_SESSION["UGID"],"opd_visit_Edit")) {
+					echo mdsError("You dont have enough permission to edit 'Visit' <br> Contact your system Administrator!");
+					return;
+				}
+				include "include/form.php";
+				echo loadOpdVisitScreen("Edit");
+			}
+			else {
+				if (!$mdsPermission->haveAccess($_SESSION["UGID"],"opd_visit_New")) {
+					echo mdsError("You dont have enough permission to create a 'Visit' <br> Contact your system Administrator!");
+					return;
+				}
+				include "include/form.php";
+				echo loadOpdVisitScreen("New");
+			}
+			//return;
+		}
+		else if ( $mdsfoss->Page == "alergy" ) {
+			if ((!$mdsPermission->haveAccess($_SESSION["UGID"],"patient_alergy_New"))||(!$mdsPermission->haveAccess($_SESSION["UGID"],"patient_alergy_Edit"))) {
+					echo mdsError("You dont have enough permission to create edit 'Alergy' <br> Contact your system Administrator!");
+					return;
+			}
+			include 'include/form_config/patient_alergyForm_config.php';
+			include_once 'include/class/MDSForm.php';
+			//echo "ss";
+			$out = "";
+			$form = new MDSForm();
+			//$out .=addErrorDiv();
+			$out .=loadHeader("Add / Edit Allergy");
+			$form->FrmName = "patient_alergyForm";
+			$frm = $form->render($patient_alergyForm);
+			echo $out.$frm;
+		}
+		else if ( $mdsfoss->Page == "patient_history" ) {
+			if ((!$mdsPermission->haveAccess($_SESSION["UGID"],"patient_history_New"))||(!$mdsPermission->haveAccess($_SESSION["UGID"],"patient_history_Edit"))) {
+					echo mdsError("You dont have enough permission to create edit 'History' <br> Contact your system Administrator!");
+					return;
+			}
+			include 'include/form_config/patient_historyForm_config.php';
+			include_once 'include/class/MDSForm.php';
+			//echo "ss";
+			$out = "";
+			$form = new MDSForm();
+			//$out .=addErrorDiv();
+			$out .=loadHeader("Add / Edit Past history");
+			$form->FrmName = "patient_historyForm";
+			$frm = $form->render($patient_historyForm);
+			echo $out.$frm;
+		}		
+		else if ( $mdsfoss->Page == "patient_exam" ) {
+			if ($mdsfoss->Action == "View") {
+				if (!$mdsPermission->haveAccess($_SESSION["UGID"],"patient_exam_View")) {
+					echo mdsError("You dont have enough permission to view 'Examination' <br> Contact your system Administrator!");
+					return;
+				}
+				include_once 'include/class/MDSChart.php';
+				$chart = new MDSChart('patient_exam');
+				echo $chart->plot();
+			}
+			else if(($mdsfoss->Action == "New")||($mdsfoss->Action == "Edit")) {
+				if (!$mdsPermission->haveAccess($_SESSION["UGID"],"patient_exam_New")) {
+					echo mdsError("You dont have enough permission to create 'Examination' <br> Contact your system Administrator!");
+					return;
+				}
+				include 'include/form_config/patient_examForm_config.php';
+				include_once 'include/class/MDSForm.php';
+				$out = "";
+				$form = new MDSForm();
+				$out .=loadHeader("Add / Edit Patient Examination");
+				$form->FrmName = "patient_examForm";
+				$frm = $form->render($patient_examForm);
+				echo $out.$frm;
+			}
+		}
+		
+		else if ( $mdsfoss->Page == "emergency" ) {
+			if ($mdsfoss->Action == 'New'){	
+				if (!$mdsPermission->haveAccess($_SESSION["UGID"],"admission_New")) {
+					echo mdsError("You dont have enough permission to give an Emergency Admission <br> Contact your system Administrator!");
+					return;
+				}
+				include "include/form.php";
+				echo loadPcuVisitScreen($mdsfoss->Action);
+			}
+			else if($mdsfoss->Action == 'Edit'){
+				if (!$mdsPermission->haveAccess($_SESSION["UGID"],"admission_Edit")) {
+					echo mdsError("You dont have enough permission to Edit an Emergency Admission <br> Contact your system Administrator!");
+					return;
+					
+				}	
+				include "include/form.php";
+				echo loadPcuVisitScreen($mdsfoss->Action);
+				
+			}
+			else {
+				if (!$mdsPermission->haveAccess($_SESSION["UGID"],"admission_Edit")) {
+					echo mdsError("You dont have enough permission to View an Emergency Admission <br> Contact your system Administrator!");
+					return;
+				}
+				if($_SESSION["UserGroup"]=="Doctor"){
+				/*$pcuid = $_GET['PCUID'];
+				$mdsDB1 = MDSDataBase::GetInstance();
+			    $con=$mdsDB1->connect();
+			    $sql1 = "UPDATE pcu_visits SET Doctor_Seen='Yes' WHERE PCUID='$pcuid' ";
+			    $result1=$mdsDB1->mysqlQuery($sql1);*/
+				
+				//if($result1){
+			include "include/emergency.php";
+				echo loadEmergencySummary();
+			 //
+			}
+				else{
+				include "include/emergency.php";
+				echo loadEmergencySummary();
+				}
+			}			
+		}
+		
+		
+		else if ( $mdsfoss->Page == "admission" ) {
+			if ($mdsfoss->Action == 'New'){	
+				if (!$mdsPermission->haveAccess($_SESSION["UGID"],"admission_New")) {
+					echo mdsError("You dont have enough permission to create a 'Admission' <br> Contact your system Administrator!");
+					return;
+				}
+				include "include/form.php";
+				echo loadAdmissionEntryScreen($mdsfoss->Action);
+			}
+			else if($mdsfoss->Action == 'Edit'){
+				if (!$mdsPermission->haveAccess($_SESSION["UGID"],"admission_Edit")) {
+					echo mdsError("You dont have enough permission to Edit a 'Admission' <br> Contact your system Administrator!");
+					return;
+					
+				}	
+				include "include/form.php";
+				echo loadAdmissionEntryScreen($mdsfoss->Action);
+				
+			}
+			else {
+				if (!$mdsPermission->haveAccess($_SESSION["UGID"],"admission_Edit")) {
+					echo mdsError("You dont have enough permission to View a 'Admission' <br> Contact your system Administrator!");
+					return;
+				}
+			
+				include "include/admission.php";
+			    echo loadAdmissionSummary();
+				
+			}			
+		}	
+		else if ( $mdsfoss->Page == "admission_tranfer" ) {
+
+				if (!$mdsPermission->haveAccess($_SESSION["UGID"],"admission_Edit")) {
+					echo mdsError("You dont have enough permission to edit a 'Admission' <br> Contact your system Administrator!");
+					return;
+				}
+				include 'include/form_config/admission_tranferForm_config.php';
+				include_once 'include/class/MDSForm.php';
+				$out = "";
+				$form = new MDSForm();
+				$out .=loadHeader("Patient Transfer");
+				$form->FrmName = "admission_tranferForm";
+				$frm = $form->render($admission_tranferForm);
+				echo $out.$frm;			
+		}	                
+		else if ( $mdsfoss->Page == "opd_treatment" ) {
+			if ($mdsfoss->Action == 'Edit'){	
+				if (!$mdsPermission->haveAccess($_SESSION["UGID"],"opd_treatment_Edit")) {
+					echo mdsError("You dont have enough permission to create a 'OPD Treatment' <br> Contact your system Administrator!");
+					return;
+				}
+				include 'include/form_config/opd_treatment_entryForm_config.php';
+				include_once 'include/class/MDSForm.php';
+				$out = "";
+				$form = new MDSForm();
+				$out .=loadHeader("Add / Edit treatment orders");
+				$form->FrmName = "opd_treatment_entryForm";
+				$frm = $form->render($opd_treatment_entryForm);
+				echo $out.$frm;
+			}
+		}
+		else if ( $mdsfoss->Page == "appointment" ) {
+				if (!$mdsPermission->haveAccess($_SESSION["UGID"],"appointment_Edit")) {
+					echo mdsError("You dont have enough permission to create a 'Appointment' <br> Contact your system Administrator!");
+					return;
+				}
+				include 'include/form_config/appointmentForm_config.php';
+				include_once 'MDSForm.php';
+				$out = "";
+				$form = new MDSForm();
+				echo loadHeader("Add / Edit Appointements");
+				echo "<div id='MDSError' class='mdserror'></div>";
+				$form->FrmName = "appointmentForm";
+				$frm = $form->render($appointmentForm);
+				echo $frm;
+		}  
+		else if ( $mdsfoss->Page == "attach" ) {
+				if (!$mdsPermission->haveAccess($_SESSION["UGID"],"attach_Edit")) {
+					echo mdsError("You dont have enough permission to attach <br> Contact your system Administrator!");
+					return;
+				}
+				include 'include/form_config/attachForm_config.php';
+				include_once 'MDSForm.php';
+				$out = "";
+				$form = new MDSForm();
+				echo loadHeader("Attach file to the medical record");
+				echo "<div id='MDSError' class='mdserror'></div>";
+				$form->FrmName = "attachForm";
+				$form->isContainFile = true;
+				$frm = $form->render($attachForm);
+				echo $frm;
+		}  
+		else if ( $mdsfoss->Page == "opd_treatment_result" ) {
+			if ($mdsfoss->Action == 'Edit'){	
+				if (!$mdsPermission->haveAccess($_SESSION["UGID"],"opd_treatment_Edit")) {
+					echo mdsError("You dont have enough permission to create a 'OPD Treatment' <br> Contact your system Administrator!");
+					return;
+				}
+				include 'include/form_config/opd_treatment_resultForm_config.php';
+				include_once 'MDSForm.php';
+                                include_once 'MDSTreatment.php';
+                                include_once 'MDSOpd.php';
+				$out = "";
+				$form = new MDSForm();
+                                $ds = new MDSTreatment();
+                                $ds->openId($_GET["OPDTREATMENTID"]);
+                                
+				echo loadHeader("Add / Edit Patient treatment");
+				$form->FrmName = "opd_treatment_resultForm";
+				$frm = $form->render($opd_treatment_resultForm);
+                                if ($ds->getValue("OPDID")){
+                                    $opd = new MDSOpd();
+                                    $opd->openId($ds->getValue("OPDID"));
+                                    echo $opd->getOPDPatient()->patientBannerTiny();
+                                    
+                                }
+				echo $frm;
+			}
+		}	
+		else if ( $mdsfoss->Page == "opdSample" ) {
+			if ($mdsfoss->Action == 'Edit'){	
+				include 'include/form_config/opd_sample_collectionForm_config.php';
+				include_once 'MDSForm.php';
+                                include_once 'MDSLabOrder.php';
+                                include_once 'MDSPatient.php';
+				$out = "";
+				$form = new MDSForm();
+                                $lo = new MDSLabOrder();
+                                $lo->openId($_GET["LAB_ORDER_ID"]);
+                                
+				echo loadHeader("Sample Collection");
+				$form->FrmName = "opd_sample_collectionForm";
+				$frm = $form->render($opd_sample_collectionForm);
+                                if ($lo->getValue("PID")){
+                                    $p = new MDSPatient();
+                                    $p->openId($lo->getValue("PID"));
+                                    echo $p->patientBannerTiny();
+                                    
+                                }
+				echo $frm;
+			}
+		}                
+		else if ( $mdsfoss->Page == "admission_notes" ) {
+			if ($mdsfoss->Action == 'Edit'){	
+				if (!$mdsPermission->haveAccess($_SESSION["UGID"],"admission_notes_Edit")) {
+					echo mdsError("You dont have enough permission to create a 'Admission Notes' <br> Contact your system Administrator!");
+					return;
+				}
+				include 'include/form_config/admission_notes_entryForm_config.php';
+				include_once 'include/class/MDSForm.php';
+				$out = "";
+				$form = new MDSForm();
+				$out .="<div id='MDSError' class='mdserror'></div>";
+				$out .=loadHeader("Add / Edit Admission Notes");
+				$form->FrmName = "admission_notes_entryForm";
+				$frm = $form->render( $admission_notes_entryForm );
+				echo $out.$frm;
+			}
+		}		
+		else if ( $mdsfoss->Page == "discharge" ) {
+			if (!$mdsPermission->haveAccess($_SESSION["UGID"],"admission_Edit")) {
+				echo mdsError("You dont have enough permission to Edit a 'Admission' <br> Contact your system Administrator!");
+				return;
+			}
+			include "include/form.php";
+			echo loadAdmissionDischargeScreen();
+		}				
+		else if ( $mdsfoss->Page == "admission_diagnosis" ) {
+			if ($mdsfoss->Action == 'Edit'){	
+				if (!$mdsPermission->haveAccess($_SESSION["UGID"],"admission_diagnosis_Edit")) {
+					echo mdsError("You dont have enough permission to Edit a 'Diagnosis' <br> Contact your system Administrator!");
+					return;
+				}
+				include "include/form.php";
+				echo loadAdmissionDiagnosisScreen();
+			}
+		}	
+		else if ( $mdsfoss->Page == "admission_procedures" ) {
+			if ($mdsfoss->Action == 'Edit'){	
+				if (!$mdsPermission->haveAccess($_SESSION["UGID"],"admission_procedures_Edit")) {
+					echo mdsError("You dont have enough permission to Edit a 'Procedure' <br> Contact your system Administrator!");
+					return;
+				}
+				include "include/form.php";
+				echo loadAdmissionProcedureScreen();
+			}
+		}	
+		else if ( $mdsfoss->Page == "notification" ) {
+			if ($mdsfoss->Action == 'New'){	
+				if (!$mdsPermission->haveAccess($_SESSION["UGID"],"notification_New")) {
+					echo mdsError("You dont have enough permission to create a 'Notification' <br> Contact your system Administrator!");
+					return;
+				}
+				include "include/notification.php";
+				echo loadNotificationScreen();
+			}
+                        else if ($mdsfoss->Action == 'Edit'){	
+                            include "include/notification.php";
+                            echo loadNotificationScreen($_GET["NOTIFICATION_ID"]);
+                        }
+                        else if ($mdsfoss->Action == 'View'){	
+                            include "include/notification.php";
+                            echo viewNotification($_GET["NOTIFICATION_ID"]);
+                        }
+                        else if ($mdsfoss->Action == 'Send'){	
+                            include "include/notification.php";
+                            echo sendNotification($_GET["NOTIFICATION_ID"]);
+                        }    
+                        else {
+                                if (!$mdsPermission->haveAccess($_SESSION["UGID"],"notification_View")) {
+					echo mdsError("You dont have enough permission to view a 'Notification' <br> Contact your system Administrator!");
+					return;
+				}                        
+                                include "include/notification.php";
+                                echo loadNotificationList();
+                                //return;                              
+                        }
+		}	
+		else if ( $mdsfoss->Page == "opdPrescription" ) {
+			if (!$mdsPermission->haveAccess($_SESSION["UGID"],"opd_presciption_".$_GET["action"])) {
+					echo mdsError("You dont have enough permission to ".$_GET["action"]." Prescription <br> Contact your system Administrator!");
+					return;
+			}
+			include "include/form.php";
+			echo loadopdPrescribeScreen();
+			//return;
+		}
+		else if ( $mdsfoss->Page == "patient_prescription" ) {
+			if (!$mdsPermission->haveAccess($_SESSION["UGID"],"opd_presciption_".$_GET["action"])) {
+					echo mdsError("You dont have enough permission to ".$_GET["action"]." Prescription <br> Contact your system Administrator!");
+					return;
+			}
+			include "include/patient_prescription.php";
+			echo loadPatientPrescriptions($_GET["PID"]);
+			//return;
+		}      
+		else if ( $mdsfoss->Page == "patient_labtest" ) {
+			if (!$mdsPermission->haveAccess($_SESSION["UGID"],"lab_order_".$_GET["action"])) {
+					echo mdsError("You dont have enough permission to ".$_GET["action"]." Laboratory <br> Contact your system Administrator!");
+					return;
+			}
+			include "include/patient_labtest.php";
+			echo loadPatientLaboratory($_GET["PID"]);
+			//return;
+		}                 
+		else if ( $mdsfoss->Page == "admPrescription" ) {
+			if (!$mdsPermission->haveAccess($_SESSION["UGID"],"opd_presciption_".$_GET["action"])) {
+					echo mdsError("You dont have enough permission to ".$_GET["action"]." Prescription <br> Contact your system Administrator!");
+					return;
+			}
+			include "include/form.php";
+			echo loadADMPrescribeScreen();
+			//return;
+		}
+
+                else if ( $mdsfoss->Page == "opdLabOrder" ) {
+			if (!$mdsPermission->haveAccess($_SESSION["UGID"],"lab_order_".$_GET["action"])) {
+					echo mdsError("You dont have enough permission to ".$_GET["action"]." Lab Order <br> Contact your system Administrator!");
+					return;
+			}
+			include "include/form.php";
+			echo loadopdLabOrderScreen($mdsfoss->Action);
+			//return;
+		}
+		else if ( $mdsfoss->Page == "admLabOrder" ) {
+			if (!$mdsPermission->haveAccess($_SESSION["UGID"],"lab_order_".$_GET["action"])) {
+					echo mdsError("You dont have enough permission to ".$_GET["action"]." Lab Order <br> Contact your system Administrator!");
+					return;
+			}
+			include "include/form.php";
+			echo loadADMLabOrderScreen($mdsfoss->Action);
+			//return;
+		}	
+		else if ( $mdsfoss->Page == "ward" ) {
+			if (!$mdsPermission->haveAccess($_SESSION["UGID"],"ward_View")) {
+					echo mdsError("You dont have enough permission to view the wards <br> Contact your system Administrator!");
+					return;
+			}
+			include "include/ward.php";
+			echo loadWardList($mdsfoss->Action);
+			//return;
+		}
+	
+		else if ( $mdsfoss->Page == "wardfloorplan" ) {
+			if (!$mdsPermission->haveAccess($_SESSION["UGID"],"ward_View")) {
+					echo mdsError("You dont have enough permission to view the wards <br> Contact your system Administrator!");
+					return;
+			}
+			include "include/ward.php";
+			echo loadWardFloorPlan($mdsfoss->Action);
+			//return;
+		}    
+		else if ( $mdsfoss->Page == "wardpatient" ) {
+			if (!$mdsPermission->haveAccess($_SESSION["UGID"],"ward_View")) {
+					echo mdsError("You dont have enough permission to view the wards <br> Contact your system Administrator!");
+					return;
+			}
+			include "include/ward.php";
+			echo loadWardPatient($mdsfoss->Action);
+			//return;
+		}   
+                
+		else if ( $mdsfoss->Page == "preferences" ) {
+			include "include/preferences.php";
+			echo loadPreferences();
+			//return;
+		} 
+		else if ( $mdsfoss->Page == "pharmacy" ) {
+			include "include/pharmacy.php";
+			echo loadPharmacy();
+			//return;
+		}
+		else if ( $mdsfoss->Page == "clinicpharmacy" ) {
+			include "include/pharmacy.php";
+			echo loadClinicPharmacy();
+			//return;
+		}                
+		else if ( $mdsfoss->Page == "inpharmacy" ) {
+			include "include/pharmacy.php";
+			echo loadADMPharmacy();
+			//return;
+		}                
+		else if ( $mdsfoss->Page == "procedureroom" ) {
+			include "include/procedureroom.php";
+			echo loadProcedureRoom();
+			//return;
+		}		
+		else if ( $mdsfoss->Page == "questionnaire" ) {
+                        if (!$_GET["QUES_ST_ID"]) return;
+			include "include/class/MDSQuestionnaire.php";
+			$qes = new MDSQuestionnaire();
+                        $qes->openId($_GET["QUES_ST_ID"]);
+                        $out = $qes->load();
+			echo $out;
+		}
+                else if ( $mdsfoss->Page == "laboratory" ) {
+			include "include/laboratory.php";
+			echo loadLaboratory();
+			//return;
+		}
+				else if ( $mdsfoss->Page == "message" ) {
+			include "include/message.php";
+			echo loadInbox();
+			//return;
+		}
+					else if ( $mdsfoss->Page == "outbox" ) {
+			include "include/message.php";
+			echo loadOutbox();
+			//return;
+		}
+					
+					else if ( $mdsfoss->Page == "newmessage" ) {
+			
+			include "include/message.php";
+			include 'include/form_config/newmessageForm_config.php';
+			include_once 'include/class/MDSForm.php';
+			$out = "";
+			$form = new MDSForm();
+			$out .=loadHeader("Compose New Message");
+			$form->FrmName = "newmessageForm";
+			$frm = $form->render($newmessageForm);
+			echo $out.$frm.loadNew();
+			//return;
+		}			
+				
+		          else if ( $mdsfoss->Page == "MessageView" ) {
+		
+			include "include/message.php";
+			include 'include/form_config/messageReplyForm_config.php';
+			include_once 'include/class/MDSForm.php';				
+			include_once 'MDSDatabase.php';
+			
+			$out = "";
+			$form = new MDSForm();
+			$out .=loadHeader("Message View");
+			$form->FrmName = "messageReplyForm";
+			$frm = $form->render($messageReplyForm);
+			
+			if($mdsfoss->Action=="Reply"){
+			
+			$mdsDB1 = MDSDataBase::GetInstance();
+			$con=$mdsDB1->connect();
+			$sql1 = "UPDATE messages SET Seen='Yes' WHERE message_id='$msgid' ";
+			$result1=$mdsDB1->mysqlQuery($sql1);
+			
+			 if($result1){
+			 echo $out.renderFormEdit($msgid).$frm;
+			 }
+			
+			}
+			
+			else if($mdsfoss->Action=="View"){
+				
+			echo $out.renderFormEdit($msgid);
+			
+			}
+			//return;
+		}
+		else if ( $mdsfoss->Page == "prescribe" ) {
+		include "include/orderlist.php";
+		include_once 'MDSDatabase.php';
+		
+		
+			
+		
+		
+		if($mdsfoss->Action=="OrderView"){
+
+			$prs_item_id=$_GET['PRS_ITEM_ID'];
+			$out = "";
+			$out .=loadHeader("Ordered Prescription View");	
+			if($_SESSION["UserGroup"]=="Nurses"){
+				
+			$nurse=$_SESSION["FirstName"]." ".$_SESSION["OtherName"];	
+			$mdsDB1 = MDSDataBase::GetInstance();
+			$con=$mdsDB1->connect();
+			$sql1 = "UPDATE  prescribe_items SET Received_nurse='$nurse' WHERE PRS_ITEM_ID='$prs_item_id' ";
+			$result1=$mdsDB1->mysqlQuery($sql1);
+			
+			}
+							 
+			 echo $out.ViewOrder($prs_item_id);
+			 
+			 
+			
+			
+		}
+		
+		
+		
+		}		  
+				  
+                else if ( $mdsfoss->Page == "collectionroom" ) {
+			include "include/collection_room.php";
+			echo loadLaboratory();
+			//return;
+		}                
+                else if ( $mdsfoss->Page == "inlaboratory" ) {
+			include "include/admission_laboratory.php";
+			echo loadLaboratory();
+			//return;
+		}                
+		else if ( $mdsfoss->Page == "dispense" ) {
+			include "include/form.php";
+			echo loadopdDispenceScreen();
+			//return;
+		}
+		else if ( $mdsfoss->Page == "indispense" ) {
+			include "include/form.php";
+			echo loadADMDispenceScreen();
+			//return;
+		}                
+		else if ( $mdsfoss->Page == "patientlist" ) {
+			include "include/patientlist.php";
+			echo loadDoctorDefaultPage();
+			//return;
+		}
+		else if ( $mdsfoss->Page == "orderlist" ) {
+			include "include/orderlist.php";
+			echo loadNurseDefaultPage();
+			//return;
+		}
+		else if ( $mdsfoss->Page == "report" ) {
+			include "include/report.php";
+			echo loadReport();
+			//return;
+		}    
+		else if ( $mdsfoss->Page == "registry" ) {
+			include "include/registry.php";
+			echo loadRegistry();
+			//return;
+		}      		
+		else if ( $mdsfoss->Page == "logout" ) {
+			include "include/logout.php";
+		}
+                else{
+                    header("location:index.php");
+                }
+
+                echo "</div>";
+	}
+  
+}
+?>

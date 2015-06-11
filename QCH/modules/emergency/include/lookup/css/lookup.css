@@ -1,0 +1,18 @@
+.mdsHead{
+	border-bottom:2px solid #000000;
+	background:#8fcdea;
+	height:20px;
+	padding-left:20px;
+	padding-top:5px;
+	font-family: arial;
+	font-size:12px;
+	font-weight:bold;
+}
+
+.cmb{
+	height:15px;
+	padding-left:20px;
+	padding-top:5px;
+	font-family: arial;
+	font-size:10px;
+}

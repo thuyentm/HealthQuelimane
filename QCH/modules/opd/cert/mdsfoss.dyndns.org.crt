@@ -1,0 +1,61 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number: 1 (0x1)
+        Signature Algorithm: md5WithRSAEncryption
+        Issuer: C=SL, ST=Sri Lanka, L=Kalutara, O=Lunar Technologies Ltd., OU=Certification Services Division, CN=MDSFoss Root CA/emailAddress=info@mdsfoss.org
+        Validity
+            Not Before: Dec 14 04:49:51 2011 GMT
+            Not After : Dec 11 04:49:51 2021 GMT
+        Subject: C=SL, ST=Sri Lanka, L=Kalutara, O=Lunar Technologies Ltd., OU=Server Managment, CN=mdsfoss.dyndns.org/emailAddress=info@mdsfoss.org
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+            RSA Public Key: (1024 bit)
+                Modulus (1024 bit):
+                    00:db:e8:31:68:78:b6:dc:38:8c:f0:86:53:fb:72:
+                    b8:12:7b:05:96:7b:07:a8:a3:c8:19:50:4f:86:37:
+                    ec:38:f9:97:9b:3b:1b:b0:92:cb:7f:00:ce:30:63:
+                    5d:53:06:95:11:af:ec:1f:77:6a:68:c0:52:34:34:
+                    fe:f6:41:12:7d:f5:32:71:ee:8c:99:ad:ae:65:88:
+                    0a:18:d0:85:5f:4f:eb:3a:2c:c5:29:37:a0:a1:db:
+                    50:eb:60:f5:3e:84:7b:24:81:ec:49:51:92:e5:74:
+                    7c:c7:76:4b:fa:b0:cb:dd:68:ff:97:8e:b3:69:ac:
+                    05:36:1a:4c:f7:00:74:5b:7d
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Authority Key Identifier: 
+                keyid:A1:41:AA:2C:46:AD:BE:E0:92:C7:25:C8:FE:76:7F:CA:B6:D1:42:72
+
+            X509v3 Extended Key Usage: 
+                TLS Web Server Authentication, TLS Web Client Authentication, Microsoft Server Gated Crypto, Netscape Server Gated Crypto
+            X509v3 Basic Constraints: critical
+                CA:FALSE
+    Signature Algorithm: md5WithRSAEncryption
+        ad:ad:b8:b9:4c:1e:e6:af:25:6b:83:e1:ae:bf:da:67:cd:b3:
+        b3:10:03:42:8d:67:b8:cb:b1:fe:c8:a9:97:0a:1e:a8:b4:a0:
+        c1:fb:49:8a:79:a4:ae:76:73:76:27:07:05:03:c0:cd:1c:a7:
+        82:7e:49:e1:1d:39:71:30:83:b6:60:da:b5:35:b4:3e:52:4e:
+        66:a1:59:f1:da:f9:a1:23:a8:be:bd:84:67:2f:6b:d0:56:4d:
+        c5:5f:90:e3:67:c7:32:fe:4d:f2:d4:e8:e3:28:84:23:bf:13:
+        73:77:b2:b9:a1:44:94:d8:db:4e:71:b6:e7:cb:3e:a9:69:5f:
+        2c:1a
+-----BEGIN CERTIFICATE-----
+MIIDSTCCArKgAwIBAgIBATANBgkqhkiG9w0BAQQFADCBuzELMAkGA1UEBhMCU0wx
+EjAQBgNVBAgTCVNyaSBMYW5rYTERMA8GA1UEBxMIS2FsdXRhcmExIDAeBgNVBAoT
+F0x1bmFyIFRlY2hub2xvZ2llcyBMdGQuMSgwJgYDVQQLEx9DZXJ0aWZpY2F0aW9u
+IFNlcnZpY2VzIERpdmlzaW9uMRgwFgYDVQQDEw9NRFNGb3NzIFJvb3QgQ0ExHzAd
+BgkqhkiG9w0BCQEWEGluZm9AbWRzZm9zcy5vcmcwHhcNMTExMjE0MDQ0OTUxWhcN
+MjExMjExMDQ0OTUxWjCBrzELMAkGA1UEBhMCU0wxEjAQBgNVBAgTCVNyaSBMYW5r
+YTERMA8GA1UEBxMIS2FsdXRhcmExIDAeBgNVBAoTF0x1bmFyIFRlY2hub2xvZ2ll
+cyBMdGQuMRkwFwYDVQQLExBTZXJ2ZXIgTWFuYWdtZW50MRswGQYDVQQDExJtZHNm
+b3NzLmR5bmRucy5vcmcxHzAdBgkqhkiG9w0BCQEWEGluZm9AbWRzZm9zcy5vcmcw
+gZ8wDQYJKoZIhvcNAQEBBQADgY0AMIGJAoGBANvoMWh4ttw4jPCGU/tyuBJ7BZZ7
+B6ijyBlQT4Y37Dj5l5s7G7CSy38AzjBjXVMGlRGv7B93amjAUjQ0/vZBEn31MnHu
+jJmtrmWIChjQhV9P6zosxSk3oKHbUOtg9T6EeySB7ElRkuV0fMd2S/qwy91o/5eO
+s2msBTYaTPcAdFt9AgMBAAGjZzBlMB8GA1UdIwQYMBaAFKFBqixGrb7gksclyP52
+f8q20UJyMDQGA1UdJQQtMCsGCCsGAQUFBwMBBggrBgEFBQcDAgYKKwYBBAGCNwoD
+AwYJYIZIAYb4QgQBMAwGA1UdEwEB/wQCMAAwDQYJKoZIhvcNAQEEBQADgYEAra24
+uUwe5q8la4Phrr/aZ82zsxADQo1nuMux/siplwoeqLSgwftJinmkrnZzdicHBQPA
+zRyngn5J4R05cTCDtmDatTW0PlJOZqFZ8dr5oSOovr2EZy9r0FZNxV+Q42fHMv5N
+8tTo4yiEI78Tc3eyuaFElNjbTnG258s+qWlfLBo=
+-----END CERTIFICATE-----

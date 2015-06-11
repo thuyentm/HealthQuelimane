@@ -1,0 +1,152 @@
+@charset "utf-8";
+/* CSS Document */
+
+html body{
+	margin:auto;
+	background-color:#6CA6CD;
+	background-image:url(img01_a.jpg) ;
+	background-repeat:repeat-x;
+	background-position:top;
+	min-height:700px;
+}
+
+.ptitle{
+height: 80px;
+width: 900px;
+display: block;
+padding-top:15px;
+margin:auto;
+color:#000000;
+font-size: 65px;
+font-family: sans-serif;
+font-weight: bold;
+text-align:center;
+vertical-align:middle;
+}
+P.blocktext {
+margin-top: auto;
+    margin-left: auto;
+    margin-right: auto;
+    width: 9em
+}
+
+#wbase{
+height: 500px;
+width: 930px;
+background-color: white;
+margin:auto;
+-webkit-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+-moz-box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.5);
+border-radius: 5px;
+-webkit-border-radius: 5px;
+-moz-border-radius: 5px;
+margin-top:75px;
+text-align: center;
+font-size: 600px;
+font-family: Arial, Helvetica, sans-serif;
+font-weight: bold;
+color: red;
+
+ 
+}
+
+#wbase1{
+height: 500px;
+width:auto;
+background-color: white;
+text-align: center;
+font-size: 310px;
+font-family: Arial, Helvetica, sans-serif;
+font-weight: bold;
+color: red;
+
+ 
+}
+
+#wbase2{
+
+text-align: center;
+font-size: 130px;
+font-family: Arial, Helvetica, sans-serif;
+font-weight: bold;
+color: black;
+
+ 
+}
+#wbase1{
+	text-align: center;
+font-size: 310px;
+font-family: Arial, Helvetica, sans-serif;
+font-weight: bold;
+color: red;
+}
+table{
+    table-layout: fixed;
+    width: 1900px;
+}
+
+th, td {
+    overflow: hidden;
+    width: 900px;
+	height:auto;
+	
+
+}
+
+
+
+#waiting {
+	width:100%;
+	height:60%;
+	
+	
+}
+
+#screen_footer {
+	width:99.9%;
+	position: absolute;
+	bottom: 0; 
+	left: 0;
+}
+
+.num{
+ text-align:center;
+ font-size:24px;
+ font-family:Arial, Helvetica, sans-serif;
+}
+.texts{
+text-align: center;
+font-size: 300px;
+font-family: Arial, Helvetica, sans-serif;
+font-weight: bold;
+color: red;
+
+}
+
+.qtext{
+text-align: center;
+font-size: 80px;
+font-family: Arial, Helvetica, sans-serif;
+font-weight: bold;
+color: black;
+
+}
+#footer {
+	width: 1000px;
+	margin-top: 60px;
+	margin-left: auto;
+	margin-right: auto;
+	
+	
+}
+
+html>body #footer {
+	height: 23px;;
+
+}
+
+#footer p {
+	font-size: 22px;
+	color:#6C0F20;
+	
+}

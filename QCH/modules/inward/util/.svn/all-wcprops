@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 34
+/repos/hhims/!svn/ver/1/trunk/util
+END
+.htaccess
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/repos/hhims/!svn/ver/1/trunk/util/.htaccess
+END
+index.php
+K 25
+svn:wc:ra_dav:version-url
+V 44
+/repos/hhims/!svn/ver/1/trunk/util/index.php
+END

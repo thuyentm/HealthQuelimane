@@ -1,0 +1,243 @@
+
+	/**
+	* @author  Thadzee
+	* @version
+	*/
+
+
+@CHARSET "ISO-8859-1";
+
+body {
+	margin: 0;
+	padding: 0;
+
+	font-size: 83%;
+	/*font-family: Georgia, "Times New Roman", Times, serif;*/
+	font-family: sans-serif;
+	text-align: justify;
+	color: #5C5C5C;
+	
+}
+
+img {
+	border			: none;
+}
+
+a{
+		cursor		: pointer;
+	    color       : #fff;
+		font-weight	: bold;
+		text-decoration	: none;
+}
+
+button {
+	font-size		:10pt;
+	foreground-color	: #07338D;
+}
+.textBoxCss{
+	font-weight:bold;
+	
+}
+div.pane {
+	position			: relative;
+	margin              : 2px;
+	width				: 700px;
+	height				: 400px;	
+	border				: 1px solid #CCD8E4;
+	background-color	: #C6E2FF;
+	background-repeat	: no-repeat;
+	overflow			: hidden;
+	border-radius:8px;
+	-webkit-border-radius:8px;
+	-moz-border-radius:8px;
+}
+div#paneOuter {
+	position			: relative;
+	margin				: auto;
+	margin-top          : 100px;
+	width				: 600px;
+	height				: 406px;	
+	border				: 3px solid #fff;
+	background-repeat	: no-repeat;
+	overflow			: hidden;
+	border-radius:12px;
+	-webkit-border-radius:12px;
+	-moz-border-radius:12px;
+}
+div.left {
+	
+	position            : relative;
+	float               : left;
+	width               : 35%;
+	height              : 350px;
+	
+	
+	
+}
+.Error{
+	background:#FFA4A4;
+}
+
+div.right {
+	
+	position            : relative;
+	float               : left;
+	width               : 50%;
+	height              : 350px;
+}
+
+.clr{
+	clear:both;
+}
+
+
+.img1 {
+	position:absolute;
+	left                : 30px;
+	top                 : 40px;
+	margin-top			: 125px;
+    
+
+}
+
+.img2 {
+	position            :absolute;
+	left                :-2px;
+	top                 :40px;
+	margin-left			: 65px;
+	
+
+}
+
+table.login {
+	
+	position            : absolute;
+	left                : 0px;
+	top                 : 162px;
+	width				: 300px;
+	padding				: -1px;
+	background-color	: #6495ED;
+	color				: #00008B;
+	-webkit-box-shadow  : 0px 0px 10px rgba(0, 0, 0, 0.4);  
+    -moz-box-shadow     : 0px 0px 10px rgba(0, 0, 0, 0.4);
+}
+
+
+
+.login thead{
+	background-color	: #87CEFA;	
+	height				: 30px;
+	width				: 300px;
+	text-align			: left;
+}
+
+.login th {
+	padding-left		: 10px;
+	padding-top         :5px;
+}
+
+.login tr	{
+	height				: 30px;
+	font-size			: 10pt;
+}
+
+.login td{
+	padding:5px 0;
+	color:white;
+}
+
+.login button{
+	float			: right;
+	font-size		: 10pt;
+	font-family		: "Calibri";
+	font-weight		: bold;
+	color			: #00008B;
+	width			: 75px;
+	height			: 25px;
+	cursor          : pointer;
+}
+
+table.register {
+	
+	position            : absolute;
+	left                : 80px;
+	top                 : 290px;
+	width				: 220px;
+	padding				: 1px;
+	background-color	: #D8D8D8;
+	color				: #6C0F20;
+	
+	
+	
+}
+
+.register thead{
+	background-color	: #EDC23A;	
+	height				: 20px;
+	text-align			: left;
+	border-radius:8px;
+	-webkit-border-radius:8px;
+	-moz-border-radius:8px
+}
+
+.register th {
+	padding-left		: 10px;
+}
+
+.register tr	{
+	height				: 30px;
+	font-size			: 10pt;
+}
+
+.register td{
+	padding:5px 0;
+	color:#6C0F20;
+}
+
+.register button{
+	float			: center;
+	font-size		: 10pt;
+	font-family		: "Calibri";
+	font-weight		: bold;
+	color			: #6C0F20;
+	width			: auto;
+	height			: 25px;
+	cursor          : pointer;
+}
+
+div.tiny {	
+	width				: 600px;
+	height				: 40px;
+	margin				: 0 none 0 none;
+	padding-top			: 20px;
+	/*background-color	: #D8D8D8;*/
+	color				: #8B7355;
+	font-size			: 8pt;
+	font-weight:bold;
+	text-align			: center;
+	vertical-align		: bottom;
+}
+div.footer {
+	position			: relative;
+	width				: 700px;
+	height				: 40px;
+	margin				: 0 auto 2px auto;
+	/*padding-top	    : 10px;*/
+	background-color	: #CDAA7D;
+	color				: white;
+	font-size			: 8pt;
+	text-align			: center;
+	vertical-align		: middle;
+}
+.errMsg{
+	position            :absolute;
+	top                 :238px;
+	left                :362px;
+	width               :298px;
+	font-weight			:bold;
+	height              :auto;
+	word-wrap           :break-word;
+	color               :#C9F;
+	font-size           :9px;
+	
+}
