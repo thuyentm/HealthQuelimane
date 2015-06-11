@@ -1,1 +1,1 @@
-# HIS Project of Quelimane Central Hospital
+# HIS Project for Quelimane Central Hospital
