@@ -4,7 +4,7 @@ $mlog = MDSLogger::GetInstance();
 $mlog->saveUserLog('logs/','logged_out');
 session_start();
 session_destroy();
-echo "<script language='javascript'> top.document.location='../login.php'</script>";
+echo "<script language='javascript'> top.document.location='../index.php'</script>";
 /*
 --------------------------------------------------------------------------------
 HHIMS - Hospital Health Information Management System
