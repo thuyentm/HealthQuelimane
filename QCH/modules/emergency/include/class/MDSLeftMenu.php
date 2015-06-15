@@ -89,7 +89,7 @@ class MDSLeftMenu
 											//$menu .="<input type='button' class='submenuBtn' value='".getPrompt("Create a visit")."' onclick=self.document.location='home.php?page=opd&action=new&PID=".$patient->getValue("PID")."'>\n";
 											if (!$patient->haveAnyOpenedAdmission()){
 												
-												$menu .="<input type='button' class='submenuBtn' value='".getPrompt("Create an Emergency Visit")."' onclick=self.document.location='home.php?page=pcu&action=New&PID=".$patient->getValue("PID")."'>\n";
+												$menu .="<input type='button' class='submenuBtn' value='".getPrompt("Create an Emergency Visit")."' onclick=self.document.location='home.php?page=emergency&action=New&PID=".$patient->getValue("PID")."'>\n";
 											    
 											}
 											//$menu .= getAppointmentLink($patient->getValue("PID"));
