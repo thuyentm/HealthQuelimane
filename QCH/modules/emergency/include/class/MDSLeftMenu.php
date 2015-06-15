@@ -89,7 +89,7 @@ class MDSLeftMenu
 											//$menu .="<input type='button' class='submenuBtn' value='".getPrompt("Create a visit")."' onclick=self.document.location='home.php?page=opd&action=new&PID=".$patient->getValue("PID")."'>\n";
 											if (!$patient->haveAnyOpenedAdmission()){
 												
-												$menu .="<input type='button' class='submenuBtn' value='".getPrompt("Create an Emergency Visit")."' onclick=self.document.location='home.php?page=pcu&action=New&PID=".$patient->getValue("PID")."'>\n";
+												$menu .="<input type='button' class='submenuBtn' value='".getPrompt("Create an Emergency Visit")."' onclick=self.document.location='home.php?page=emergency&action=New&PID=".$patient->getValue("PID")."'>\n";
 											    
 											}
 											//$menu .= getAppointmentLink($patient->getValue("PID"));
@@ -332,10 +332,10 @@ class MDSLeftMenu
 
                                 $menu .="<a  class='LeftMenuItem' href=''>Application Tables</a>\n"; 
                                 $menu .="<div>\n"; 
-                                        $menu .="<input type='button' class='submenuBtn' value='SNOMED Findings' onclick=loadDataTable('Finding','')>\n";
-                                        $menu .="<input type='button' class='submenuBtn' value='SNOMED Disorders' onclick=loadDataTable('disorder','')>\n";
-                                        $menu .="<input type='button' class='submenuBtn' value='SNOMED Events' onclick=loadDataTable('event','')>\n";
-                                        $menu .="<input type='button' class='submenuBtn' value='SNOMED Procedures' onclick=loadDataTable('procedures','')>\n";
+//                                      $menu .="<input type='button' class='submenuBtn' value='SNOMED Findings' onclick=loadDataTable('Finding','')>\n";
+//                                      $menu .="<input type='button' class='submenuBtn' value='SNOMED Disorders' onclick=loadDataTable('disorder','')>\n";
+//                                      $menu .="<input type='button' class='submenuBtn' value='SNOMED Events' onclick=loadDataTable('event','')>\n";
+//                                      $menu .="<input type='button' class='submenuBtn' value='SNOMED Procedures' onclick=loadDataTable('procedures','')>\n";
                                         $menu .="<input type='button' class='submenuBtn' value='ICD 10' onclick=loadDataTable('Icd','')>\n";
                                         $menu .="<input type='button' class='submenuBtn' value='IMMR' onclick=loadDataTable('Immr','')>\n";
                                         $menu .="<input type='button' class='submenuBtn' value='".getPrompt("Village'")." onclick=loadDataTable('Village','')>\n";
