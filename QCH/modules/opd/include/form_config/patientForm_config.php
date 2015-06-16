@@ -59,7 +59,7 @@ if ($_SESSION["USE_ONE_FIELD_NAME"] == 1) {
         "valid" => "", "Style" => "font-weight:bold;font-size:16;height:25px;"
     );
 }
-//Clinic number only used in Sri Lanka
+//Clinic number only used in Sri Lanka 
 /*
   $patientForm["FLD"][3]=array(
   "Id"=>"ClinicNo",   "Name"=>"Clinic Number",    "Type"=>"text",

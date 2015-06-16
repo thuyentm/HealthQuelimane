@@ -61,7 +61,7 @@ if ($patient) {
     $pat_nam_d = $patient->getFullName(); //returns the fullname
     $pat_hos_d = "BANGLADESH-KOREA FRIENDSHIP HOSPITAL"; //returns the default hospital
     $pat_sex_d = $patient->getValue("Gender");
-    //Clinic number only used in Sri Lanka
+    //Clinic number only used in Sri Lanka 
     //$pat_cno_d = $patient->getValue("ClinicNo");
     $pat_dob_d = $patient->getValue("DateOfBirth");
     $pat_age_d = $patient->getAge(); //returns in format 23yrs 3mths

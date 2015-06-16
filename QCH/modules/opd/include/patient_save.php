@@ -81,7 +81,7 @@ if (!session_is_registered(username)) {
 	$new_patient->setValue("Personal_Title",(cleanName($_POST['Personal_Title'])));
 	$new_patient->setValue("Full_Name_Registered",strtoupper(cleanName($_POST['Full_Name_Registered'])));
 	$new_patient->setValue("Personal_Used_Name",strtoupper (cleanName($_POST['Personal_Used_Name'])));
-	//Clinic number only used in Sri Lanka
+	//Clinic number only used in Sri Lanka 
         //$new_patient->setValue("ClinicNo",(cleanAddress($_POST['ClinicNo'])));
 	$new_patient->setValue("Gender",$_POST['Gender']);
 	$new_patient->setValue("DateOfBirth",(($_POST['DateOfBirth'])));
