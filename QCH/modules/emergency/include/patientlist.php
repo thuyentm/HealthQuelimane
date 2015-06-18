@@ -39,9 +39,6 @@ function loadDoctorMenu() {
 			
 			$menu .="<input type='button' class='submenuBtn' value='Waiting Patients'  onclick=self.document.location='home.php?page=patientlist&show=waitingpatient'>\n";
 			$menu .="<input type='button' class='submenuBtn' value='Observed Patients'  onclick=self.document.location='home.php?page=patientlist&show=observationpatient'>\n";
-			//$menu .="<input type='button' class='submenuBtn' value='Admitted Patients'  onclick=self.document.location='home.php?page=patientlist&show=admittedpatient'>\n";
-			//$menu .="<input type='button' class='submenuBtn' value='My Lab Orders'  onclick=self.document.location='home.php?page=patientlist&show=admlabresult'>\n";
-			//$menu .="<input type='button' class='submenuBtn' value='My Prescribe Orders'  onclick=self.document.location='home.php?page=patientlist&show=presorder'>\n";
 			$menu .="</div>\n";
 	$menu .=" </div>\n";
 	$menu .="</div>\n";
@@ -91,147 +88,6 @@ function loadLaboratoryTable($mode,$user){
 		$link ="'home.php?page=emergency&action=View&EMRID='+rowId+'&RETURN='+encodeURIComponent('home.php?page=patientlist&show=observationpatient')";
    }
    
-   
-   else if ($mode == "admittedpatient") {
-	$qry = "SELECT  admission.AdmissionDate,
-			admission.BHT,
-			admission.ADMID ,
-			admission.Complaint,
-			concat('(', patient.PID,')',patient.Personal_Title, ' ',patient.Full_Name_Registered,' ', patient.Personal_Used_Name)  , 
-			concat(DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(patient.DateofBirth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(patient.DateofBirth, '00-%m-%d')) ,'Yrs / ',patient.Gender,' / ',patient.Personal_Civil_Status,' / ', patient.Address_Village)as Details
-			FROM admission, patient
-			where (patient.PID = admission.PID ) and (admission.Ward='0' ) AND (admission.DischargeDate='')";
-		//(admission.Doctor ='".$user->getId()."') AND
-		$OBJID = "ADMID";
-		$caption = "Admitted patient list";	
-		$clmns = array("Admission Date","BHT","","Complaints","Name","Details");
-		$dte_field = "AdmissionDate";
-		$link ="'home.php?page=admission&action=View&ADMID='+rowId+'&RETURN='+encodeURIComponent('home.php?page=patientlist&show=admittedpatient')";
-   }   
-   else if ($mode == "labresult") {
-	$qry = "SELECT  
-			lab_order.OrderDate, 
-           lab_order.LAB_ORDER_ID, 
-           concat('(',lab_order.LAB_ORDER_ID,')',lab_order.TestGroupName),		   
-           concat('(', patient.PID,')',patient.Personal_Title, ' ',patient.Full_Name_Registered,' ', patient.Personal_Used_Name)  , 
-           concat(DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(patient.DateofBirth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(patient.DateofBirth, '00-%m-%d')) ,'Yrs / ',patient.Gender,' / ',patient.Personal_Civil_Status,' / ', patient.Address_Village)as Details ,
-		   lab_order.Status 
-           FROM lab_order, patient 
-           WHERE ( lab_order.PID = patient.PID ) AND (lab_order.OrderBy = '".$user->getName()."' ) AND (lab_order.Dept = 'OPD')";
-		$OBJID = "LAB_ORDER_ID";
-		$caption = "My lab orders";	
-		$clmns = array("Order date","","Test name","Name","Details","Status");
-		$dte_field = "OrderDate";
-		$link ="'home.php?page=opdLabOrder&action=View&LABORDID='+rowId+'&RETURN='+encodeURIComponent('home.php?page=patientlist&show=labresult')";
-   }   
-   else if ($mode == "admlabresult") {
-	$qry = "SELECT  
-			lab_order.OrderDate, 
-           lab_order.LAB_ORDER_ID, 
-           concat('(',lab_order.LAB_ORDER_ID,')',lab_order.TestGroupName), 		    
-           concat('(', patient.PID,')',patient.Personal_Title, ' ',patient.Full_Name_Registered,' ', patient.Personal_Used_Name)  , 
-           concat(DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(patient.DateofBirth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(patient.DateofBirth, '00-%m-%d')) ,'Yrs / ',patient.Gender,' / ',patient.Personal_Civil_Status,' / ', patient.Address_Village)as Details ,
-		   lab_order.Status
-           FROM lab_order, patient 
-           WHERE ( lab_order.PID = patient.PID ) AND (lab_order.OrderBy = '".$user->getName()."' ) AND (lab_order.Dept = 'ADM')";
-		$OBJID = "LAB_ORDER_ID";
-		$caption = "My lab orders";	
-		$clmns = array("Order date","","Test name","Status","Name","Details");
-		$dte_field = "OrderDate";
-		$link ="'home.php?page=admLabOrder&action=View&LABORDID='+rowId+'&RETURN='+encodeURIComponent('home.php?page=patientlist&show=labresult')";
-   }
-   
-      else if ($mode == "presorder") {
-$qry = "SELECT   prescribe_items.CreateDate,
-			 prescribe_items.PRS_ITEM_ID,
-			 opd_presciption.PID,
-			 patient.Full_Name_Registered,
-			 admission.Ward,
-			 drugs.Name,
-			 prescribe_items.Dosage,
-			 prescribe_items.Frequency,
-			 prescribe_items.HowLong,
-			 prescribe_items.CreateUser,
-			  prescribe_items.Received_nurse
-			FROM prescribe_items ,opd_presciption,patient,admission,drugs
-			where (opd_presciption.PRSID = prescribe_items.PRES_ID) AND (patient.PID =  opd_presciption.PID) AND (admission.PID =  opd_presciption.PID) AND ( prescribe_items.DRGID =  drugs.DRGID) AND (opd_presciption.Dept = 'ADM') AND (prescribe_items.CreateUser = '".$user->getName()."')"; 
-		
-		// (opd_visits.Doctor ='".$user->getId()."') AND 
-			
-		/*	$qry = "SELECT  opd_visits.DateTimeOfVisit,
-			opd_visits.OPDID ,
-			opd_visits.Complaint,			
-			concat('(', patient.PID,')',patient.Personal_Title, ' ',patient.Full_Name_Registered,' ', patient.Personal_Used_Name)  , 
-			
-			opd_visits.Status 
-			FROM opd_visits, patient 
-			where (opd_visits.PID=2 )"; */			
-			
-		$OBJID = "PRS_ITEM_ID";
-		$caption = "My Prescribe Order list";	
-		$clmns = array("Order Date","","Patient ID","Patient Name","Ward","Drug","Dose","Frequency","HowLong","Ordered Doctor","Received Nurse ");
-		//$status = "Status";	
-		$dte_field = "CreateDate";
-		$link ="'home.php?page=prescribe&action=OrderView&PRS_ITEM_ID='+rowId+'&RETURN='+encodeURIComponent('home.php?page=orderlist&show=orderlist')";
-   }
-
-		
- 
-   
-   
-     /* 
-		   if($status=='High Critical') $color=='red';
-		  if($status=='Critical') $color=='blue';
-		  if($status=='Normal') $color=='green';
-		 
-		 
-       $con = mysql_connect(HOST, USERNAME, PASSWORD);
-        if (!con) {
-            die('Could not connect: ' . mysql_error());
-        }
-        mysql_select_db(DB);
-		
-	$result = mysql_query($qry);
-	
-	$get_status = array();
-for ($i = 0; $i < mysql_num_fields($result); ++$i) {
-    $table = mysql_field_table($result, $i);
-    $field = mysql_field_name($result, $i);
-    array_push($get_status, "$table.$field");
-}
-
-if($get_status['opd_visits.Status']='Critical'){
-
-		if(status='High Critical'){
-		$('#rid').css({'background':'red'});
-		}
-		
-		if(status=''){
-		$(this).css('background',c);
-		}
-	if(status='High Critical'){
-		$('#1').css({'background':'red'});
-		}
-$('#'+rid).css({'background':'yellow'});
-
-		if(status=='Critical'){	
-				
-			$('#'+rid).css({'background':'yellow'});				
-		}
-		
-			if(status=='High Critical'){
-				
-		$('#'+rid).css({'background':'red'});
-		
-		}
-
-		
-		if(status=''){
-		$(this).css('background',c);
-		}
-$('#'+rid).css({'background':'yellow'});
-}*/
-	//$status;
 
 
 	$pager2 = new MDSPager($qry);	
@@ -255,9 +111,9 @@ $('#'+rid).css({'background':'yellow'});
 		$pager2->setColOption("Status", array("stype" => "select", "searchoptions" => array("value" => ":All;Pending:Pending;Done:Done","Default"=>"Pending")));
 	}
 
+        if($_SESSION["UserGroup"]=="ODoctor" && $mode == "waitingpatient"){
 		$pager2->gridComplete_JS = "function(){
         
-		
 		var c =null;
 		$('.jqgrow').mouseover(function(e) {
 			var rowId = $(this).attr('id');
@@ -265,9 +121,15 @@ $('#'+rid).css({'background':'yellow'});
 			$(this).css({'background':'white','cursor':'pointer'});
 		}).mouseout(function(e){
 			$(this).css('background',c);
-		}).click(function(e){
+		}).click(function(e){ 
+                       var r=confirm('Are you observe this patient?');
+                      if(r==true){
 			var rowId = $(this).attr('id');
 			window.location=$link;
+                        }
+                        else{
+                        return false;
+                        }
 		});	
 		
 
@@ -275,6 +137,36 @@ $('#'+rid).css({'background':'yellow'});
 
 				
 		}";	
+        }
+        else{
+            
+         $pager2->gridComplete_JS = "function(){
+        
+		var c =null;
+		$('.jqgrow').mouseover(function(e) {
+			var rowId = $(this).attr('id');
+			c = $(this).css('background');
+			$(this).css({'background':'white','cursor':'pointer'});
+		}).mouseout(function(e){
+			$(this).css('background',c);
+		}).click(function(e){ 
+                    
+			var rowId = $(this).attr('id');
+			window.location=$link;
+                       
+		});	
+		
+
+		
+
+				
+		}";     
+            
+            
+            
+            
+            
+        }
 
 		
 	//$i++;

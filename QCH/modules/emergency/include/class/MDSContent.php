@@ -181,16 +181,17 @@ class MDSContent
 					echo mdsError("You dont have enough permission to View an Emergency Admission <br> Contact your system Administrator!");
 					return;
 				}
-				if($_SESSION["UserGroup"]=="Doctor"){
-				/*$pcuid = $_GET['PCUID'];
-				$mdsDB1 = MDSDataBase::GetInstance();
+			if($_SESSION["UserGroup"]=="ODoctor"){
+			    $emrid = $_GET['EMRID'];
+			    $mdsDB1 = MDSDataBase::GetInstance();
 			    $con=$mdsDB1->connect();
-			    $sql1 = "UPDATE pcu_visits SET Doctor_Seen='Yes' WHERE PCUID='$pcuid' ";
-			    $result1=$mdsDB1->mysqlQuery($sql1);*/
+			    $sql1 = "UPDATE Emergency_Admission SET Observation='Yes' WHERE EMRID='$emrid' ";
+			    $result1=$mdsDB1->mysqlQuery($sql1);
 				
-				//if($result1){
+				if($result1){
 			include "include/emergency.php";
 				echo loadEmergencySummary();
+                                }
 			 //
 			}
 				else{
