@@ -33,7 +33,7 @@ include_once 'mds_reporter/MDSReporter.php';
 
 // Document constants
 $date = 'Date & Time:';
-$title = 'PRELIMINARY CARE UNIT';
+$title = 'EMERGENCY';
 $title1='BASE HOSPITAL - AVISSAWELLA';
 $pat_name = 'Patient Name: ';
 $pat_sex = '';
