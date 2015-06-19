@@ -80,8 +80,8 @@ class MDSLeftMenu {
         $menu .="<a  href='#1'>" . getPrompt("Commands") . "</a>\n";
         $menu .="<div> \n";
         //$menu .="<input type='button' class='submenuBtn' value='".getPrompt("Create a visit")."' onclick=self.document.location='home.php?page=opd&action=new&PID=".$patient->getValue("PID")."'>\n";
-        if (!$patient->haveAnyOpenedAdmission()) {
-
+        if (!$patient->haveAnyOpenedAdmission() && !$patient->haveAnyOpenedEmergencyAdmission()) {
+            
             $menu .="<input type='button' class='submenuBtn' value='" . getPrompt("Create an Emergency Visit") . "' onclick=self.document.location='home.php?page=emergency&action=New&PID=" . $patient->getValue("PID") . "'>\n";
         }
         //$menu .= getAppointmentLink($patient->getValue("PID"));
@@ -315,12 +315,12 @@ class MDSLeftMenu {
         $menu .="<input type='button' class='submenuBtn' value='" . getPrompt("Drugs dosage'") . " onclick=loadDataTable('drugs_dosage','')>\n";
         $menu .="<input type='button' class='submenuBtn' value='" . getPrompt("Drugs frequency'") . " onclick=loadDataTable('drugs_frequency','')>\n";
 
-        $menu .="<input type='button' class='submenuBtn' value='" . getPrompt("Canned text'") . " onclick=loadDataTable('CannedText','')>\n";
-        $menu .="<input type='button' class='submenuBtn' value='" . getPrompt("LabTest'") . " onclick=loadDataTable('LabTest','')>\n";
-        $menu .="<input type='button' class='submenuBtn' value='" . getPrompt("Lab test group'") . " onclick=loadDataTable('labTestGroup','')>\n";
-        $menu .="<input type='button' class='submenuBtn' value='" . getPrompt("Lab test department'") . " onclick=loadDataTable('labTestDepartment','')>\n";
-        $menu .="<input type='button' class='submenuBtn' value='" . getPrompt("Wards'") . " onclick=loadDataTable('ward','')>\n";
-        $menu .="<input type='button' class='submenuBtn' value='" . getPrompt("Questionnaires") . "' onclick=loadDataTable('quest_struct','')>\n";
+       // $menu .="<input type='button' class='submenuBtn' value='" . getPrompt("Canned text'") . " onclick=loadDataTable('CannedText','')>\n";
+      //  $menu .="<input type='button' class='submenuBtn' value='" . getPrompt("LabTest'") . " onclick=loadDataTable('LabTest','')>\n";
+       // $menu .="<input type='button' class='submenuBtn' value='" . getPrompt("Lab test group'") . " onclick=loadDataTable('labTestGroup','')>\n";
+       // $menu .="<input type='button' class='submenuBtn' value='" . getPrompt("Lab test department'") . " onclick=loadDataTable('labTestDepartment','')>\n";
+       // $menu .="<input type='button' class='submenuBtn' value='" . getPrompt("Wards'") . " onclick=loadDataTable('ward','')>\n";
+       // $menu .="<input type='button' class='submenuBtn' value='" . getPrompt("Questionnaires") . "' onclick=loadDataTable('quest_struct','')>\n";
         $menu .="</div> \n";
 
         $menu .="<a  class='LeftMenuItem'>Application Tables</a>\n";

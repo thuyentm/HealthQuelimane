@@ -438,7 +438,7 @@ function loadPreferences() {
 	include_once 'class/MDSPreference.php';
 	include_once 'class/MDSLeftMenu.php';
     $mod = $_GET["mod"];
-    //if ($mod == "Complaints") {$mod = " / ".$mod;}
+      //if ($mod == "Complaints") {$mod = " / ".$mod;}
 	$out = $lbar = $head = "";
 	$pref = new MDSPreference($mod); 
 	$l_menu = new MDSLeftMenu();

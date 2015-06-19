@@ -116,11 +116,11 @@ class MDSPatient extends MDSPersistent
 			return false;
 		}
 	}
-	
-	public function haveAnyOpenedAdmissionPCU($pid){
+        
+       	public function haveAnyOpenedEmergencyAdmission(){
 		$mdsDB = MDSDataBase::GetInstance();
 		$mdsDB->connect();		
-		$result=$mdsDB->mysqlQuery("SELECT ADMID FROM admission where (PID ='".$pid."') AND (DischargeDate = '' ) "); 	
+		$result=$mdsDB->mysqlQuery("SELECT EMRID FROM emergency_admission where (PID ='".$this->getValue("PID")."') AND (DischargeDate = '' ) "); 	
 		$count = $mdsDB->getRowsNum($result);
 		$mdsDB->close();		
 		if ($count > 0) {
