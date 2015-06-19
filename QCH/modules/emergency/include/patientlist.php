@@ -58,13 +58,13 @@ function loadLaboratoryTable($mode,$user){
 
    
    if ($mode == "waitingpatient") {
-	$qry = "SELECT  Emergency_Admission.DateTimeOfVisit,
-			Emergency_Admission.EMRID ,
+	$qry = "SELECT  emergency_admission.DateTimeOfVisit,
+			emergency_admission.EMRID ,
 			concat('(', patient.PID,')',patient.Personal_Title, ' ',patient.Full_Name_Registered,' ', patient.Personal_Used_Name)  , 
 			concat(DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(patient.DateofBirth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(patient.DateofBirth, '00-%m-%d')) ,'Yrs / ',patient.Gender,' / ',patient.Personal_Civil_Status,' / ', patient.Address_Village)as Details,
-			Emergency_Admission.Status			
-			FROM Emergency_Admission, patient 
-			where (patient.PID = Emergency_Admission.PID ) AND (Emergency_Admission.Observation='No')";
+			emergency_admission.Status			
+			FROM emergency_admission, patient 
+			where (patient.PID = emergency_admission.PID ) AND (emergency_admission.Observation='No')";
 		//(admission.Doctor ='".$user->getId()."') AND
 		$OBJID = "EMRID";
 		$caption = "Waiting patient list";	
@@ -74,12 +74,12 @@ function loadLaboratoryTable($mode,$user){
    } 
    
       else if ($mode == "observationpatient") {
-	$qry = "SELECT  Emergency_Admission.DateTimeOfVisit,
-			Emergency_Admission.EMRID ,
+	$qry = "SELECT  emergency_admission.DateTimeOfVisit,
+			emergency_admission.EMRID ,
 			concat('(', patient.PID,')',patient.Personal_Title, ' ',patient.Full_Name_Registered,' ', patient.Personal_Used_Name)  , 
 			concat(DATE_FORMAT(NOW(), '%Y') - DATE_FORMAT(patient.DateofBirth, '%Y') - (DATE_FORMAT(NOW(), '00-%m-%d') < DATE_FORMAT(patient.DateofBirth, '00-%m-%d')) ,'Yrs / ',patient.Gender,' / ',patient.Personal_Civil_Status,' / ', patient.Address_Village)as Details
-			FROM Emergency_Admission, patient 
-			where (patient.PID = Emergency_Admission.PID ) AND (Emergency_Admission.Observation='Yes')";
+			FROM emergency_admission, patient 
+			where (patient.PID = emergency_admission.PID ) AND (emergency_admission.Observation='Yes')";
 		//(admission.Doctor ='".$user->getId()."') AND
 		$OBJID = "EMRID";
 		$caption = "Observed patient list";	

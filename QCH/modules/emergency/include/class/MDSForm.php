@@ -2090,7 +2090,7 @@ EOT;
 		$mdsDB = MDSDataBase::GetInstance();
 		$mdsDB->connect();		
  		$out = "";
-		$sql="SELECT Type,Area ";
+		$sql="SELECT Type";
 		$sql .= " FROM patient_status WHERE Active = TRUE " ;
 		$sql .= " ORDER BY Status_id ";
 		$result=$mdsDB->mysqlQuery($sql); 		
@@ -2104,12 +2104,12 @@ EOT;
 		$out .="<option value=''></option>\n";
 		while($row = $mdsDB->mysqlFetchArray($result))  {
 			if ($row["Type"] == $value) {
-				$out .="<option value='".$row["Type"]."' selected>".$row["Type"]." - ".$row["Area"]."</option>\n";
+				$out .="<option value='".$row["Type"]."' selected>".$row["Type"]."</option>\n";
 			}
 			else {
 					$out .="<option value='".$row["Type"]."' ";
 					if ($_COOKIE["vType"] ==$row["Type"]) $out .= "selected ";
-					$out .= ">".$row["Type"]." - ".$row["Area"]."</option>\n";
+					$out .= ">".$row["Type"]."</option>\n";
 			}
 		  }
 		$out .="</select>\n";

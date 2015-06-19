@@ -27,7 +27,7 @@ URL: http: www.hhims.org
 */
 include_once 'class/MDSAdmission.php';
 include_once 'class/MDSLeftMenu.php';
-include_once 'class/MDSPcu.php';
+include_once 'class/MDSEmr.php';
 
 function loadOpdLabTestInfo($opdid){
 	$out = "";
@@ -54,7 +54,7 @@ function loadAdmissionSummary() {
 
 	$admission		= 	new MDSAdmission();
 	$l_menu			= 	new MDSLeftMenu();
-	$pcu            =   new MDSPcu();
+	$emr                    =   new MDSEmr();
 	$admission->openId($admid);
 	$lbar			= 	$l_menu->renderLeftMenu("Admission",$admission);
 	$head			=	loadHeader("Patient Admission Information");

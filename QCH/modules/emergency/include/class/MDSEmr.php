@@ -43,7 +43,7 @@ class MDSEmr extends MDSPersistent
 	private $css_Cont_class =  "opdCont";
 	
 	public function __construct() {
-		parent::__construct("Emergency_Admission");
+		parent::__construct("emergency_admission");
 	}
 	public function  openId($pid){
 		parent::openId($pid);
@@ -103,7 +103,7 @@ class MDSEmr extends MDSPersistent
 		//$finding->openCode($this->getValue("SNOMED_Code"));
 		$mdsPermission = MDSPermission::GetInstance();
 		if ($mdsPermission->haveAccess($_SESSION["UGID"],"admission_Edit"))
-				$tools = "<img   src='images/edit-icon.png' width=15 height=15  style='cursor:pointer;' title='Edit record'  onclick=self.document.location='home.php?page=pcu&PCUID=".$this->getValue("PCUID")."&action=Edit&PID=".$this->getOpdPatient()->getId()."'>";
+				$tools = "<img   src='images/edit-icon.png' width=15 height=15  style='cursor:pointer;' title='Edit record'  onclick=self.document.location='home.php?page=emergency&EMRID=".$this->getValue("EMRID")."&action=Edit&PID=".$this->getOpdPatient()->getId()."'>";
 		//$tools .= "<img   src='images/add_note.jpg' style='cursor:pointer;' title='Add Notes' width=20 height=20  />";
 		$alert=$this->getValue("Alert");if($alert=="0")$alert="No";if($alert=="1")$alert="Yes";
 		$voice=$this->getValue("Voice");if($voice=="0")$voice="No";if($voice=="1")$voice="Yes";

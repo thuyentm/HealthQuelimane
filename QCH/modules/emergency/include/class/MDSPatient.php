@@ -446,7 +446,7 @@ class MDSPatient extends MDSPersistent
 				$tools ="";
 				if ($gotAccess) 
 						//$tools .= "<img   src='images/edit-icon.png' width=15 height=15 style='cursor:pointer;' title='Edit record' onmousedown=self.document.location='home.php?page=patient_exam&PATEXAMID=".$row["PATEXAMID"]."&action=New&PID=".$this->getId()."'>";
-                        $tools = "<img   src='images/edit-icon.png' width=15 height=15  style='cursor:pointer;' title='Edit record'  onclick=self.document.location='home.php?page=pcu&PCUID=".$row["PCUID"]."&action=Edit&PID=".$row["PID"]."'>";
+                        $tools = "<img   src='images/edit-icon.png' width=15 height=15  style='cursor:pointer;' title='Edit record'  onclick=self.document.location='home.php?page=emergency&EMRID=".$row["EMRID"]."&action=Edit&PID=".$row["PID"]."'>";
 				$out .= "<tr";
 				//if ($row["Active"] ==0) $out .=" style='text-decoration: line-through;' \n";
 				$out .=" >\n";

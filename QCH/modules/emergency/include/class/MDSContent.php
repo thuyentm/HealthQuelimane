@@ -164,7 +164,7 @@ class MDSContent
 					return;
 				}
 				include "include/form.php";
-				echo loadPcuVisitScreen($mdsfoss->Action);
+				echo loadEmergencyAdmissionScreen($mdsfoss->Action);
 			}
 			else if($mdsfoss->Action == 'Edit'){
 				if (!$mdsPermission->haveAccess($_SESSION["UGID"],"admission_Edit")) {
@@ -185,7 +185,7 @@ class MDSContent
 			    $emrid = $_GET['EMRID'];
 			    $mdsDB1 = MDSDataBase::GetInstance();
 			    $con=$mdsDB1->connect();
-			    $sql1 = "UPDATE Emergency_Admission SET Observation='Yes' WHERE EMRID='$emrid' ";
+			    $sql1 = "UPDATE emergency_admission SET Observation='Yes' WHERE EMRID='$emrid' ";
 			    $result1=$mdsDB1->mysqlQuery($sql1);
 				
 				if($result1){

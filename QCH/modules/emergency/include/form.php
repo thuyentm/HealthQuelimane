@@ -160,8 +160,8 @@ function loadOpdVisitScreen($action){
 	echo $out.$frm;
 }
 
-function loadPcuVisitScreen($action){
-    include 'form_config/pcu_entryForm_config.php';
+function loadEmergencyAdmissionScreen($action){
+    include 'form_config/emergency_entryForm_config.php';
 	include_once 'class/MDSPatient.php';
 	include_once 'class/MDSForm.php';
 	$pid = $out = $frm = "";
@@ -170,21 +170,21 @@ function loadPcuVisitScreen($action){
 	if ($pid == "") { echo "Patient not found!"; return NULL; };
 	$form = new MDSForm();
     $out .= addErrorDiv();
-	if ($_GET["PCUID"]){
-		include_once 'class/MDSPcu.php';
-		$pcu = new MDSPcu();
-		$pcu->openId($_GET["PCUID"]);
-		$blocked = !$pcu->isOpened;
+	if ($_GET["EMRID"]){
+		include_once 'class/MDSEmr.php';
+		$emr = new MDSEmr();
+		$emr->openId($_GET["EMRID"]);
+		$blocked = !$emr->isOpened;
 	}
 	if ($action == "Edit"){
-		$out .= loadHeader("Edit PCU Visit");
+		$out .= loadHeader("Edit Emergency Admission");
 	}
 	else if($action == "New"){
-		$_SESSION["PCUID"] = NULL;
-		$out .= loadHeader("New PCU Visit");
+		$_SESSION["EMRID"] = NULL;
+		$out .= loadHeader("New Emergency Admission");
 	}
-	$form->FrmName = "pcu_entryForm";
-    $frm = $form->render($pcu_entryForm,$blocked);	
+	$form->FrmName = "emergency_entryForm";
+    $frm = $form->render($emergency_entryForm,$blocked);	
 	echo $out.$frm;
 }
 
