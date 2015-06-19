@@ -161,7 +161,7 @@ else if (alertText.match(/^.*Urgent$/))
         $this->id_EL = uniqid("_");
         $this->createColModel();
         $this->pager = $this->getPager();
-        $this->exec_EL = $this->encrypt($this->sql_EL, "mdsFoss");
+        $this->exec_EL = $this->encrypt($this->sql_EL, PASSWORD);
         foreach ($this->colModel_JSAR as $column) {
             $this->rowid = $column->getIndex();
             $this->sidx = $column->getIndex();

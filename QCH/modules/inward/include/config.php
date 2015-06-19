@@ -34,7 +34,7 @@ define("DB", "mds62");
 
 //ENTER THE USER NAME AND PASSWORD DETAILS HERE
 define("USERNAME", "root");
-define("PASSWORD", "mdsFoss");
+define("PASSWORD", "Qch-his-v1");
 
 //ENTER THE SMTP DETAILS TO SEND NOTIFICATIONS
 define("MAIL_UN", "");

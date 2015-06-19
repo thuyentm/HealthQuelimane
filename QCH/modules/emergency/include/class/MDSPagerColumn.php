@@ -33,6 +33,8 @@ URL: http://www.mdsfoss.org
  *
  * @author kavinga
  */
+include_once '../config.php';
+
 class MDSPagerColumn {
 
     private $name = 'c1';
@@ -50,7 +52,7 @@ class MDSPagerColumn {
         $this->id_EL = $id_EL;
     }
 
-    function encrypt($str, $key='mdsFoss') {
+    function encrypt($str, $key=PASSWORD) {
         $block = mcrypt_get_block_size('des', 'ecb');
         if (($pad = $block - (strlen($str) % $block)) < $block) {
             $str .= str_repeat(chr($pad), $pad);

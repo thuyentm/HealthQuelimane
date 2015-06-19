@@ -1,4 +1,5 @@
 <?php
+
 header('Content-type: text/css');
 /*
   --------------------------------------------------------------------------------
@@ -39,7 +40,6 @@ include_once 'MDSPagerColumn.php';
 include_once '../config.php';
 
 class MDSPager {
-
     const YES_NO_FORMATTER_EL = "function(cellvalue, options, rowObject){switch(cellvalue){case '1':return 'yes';break;case '0':return 'no';break;default:return 'undefined';}}";
 
     public static $GENDER_SELECT_EL = array('value' => ':All;Male:Male;Female:Female');
@@ -67,7 +67,7 @@ class MDSPager {
     private $autowidth = true;
     private $mtype = 'POST';
     private $rowid;
-	private $rowclass;
+    private $rowclass;
     private $onSelectRow_JS = "function(rowid){ }";
     private $afterInsertRow_JS = "function(rowid,data){
 		
@@ -113,7 +113,7 @@ else if (alertText.match(/^.*No$/))
 }
 
 
-   	}"; 
+   	}";
     private $colIndexes_EL = array();
     private $showHeaderRow_EL = 1;
     private $showFilterRow_EL = 1;
@@ -126,10 +126,10 @@ else if (alertText.match(/^.*No$/))
     private $divid_EL = '';
     private $divstyle_EL = '';
     private $divclass_EL = '';
-	private $color='';
+    private $color = '';
     //properties used in reports
     private $widths_EL = array();
-	private $color_EL=array();
+    private $color_EL = array();
     private $orientation_EL = 'P';
     private $colHeaders_EL = array();
     private $title_EL = '';
@@ -137,13 +137,6 @@ else if (alertText.match(/^.*No$/))
     private $report_EL = 'print_pager';
     private $link_EL;
 
-	
-	
-	
-	
-	
-	
-	
     public static function getGenderSelector($default = '', $options = array()) {
         return array_merge(array('stype' => 'select', 'editoptions' => array('value' => ':All;Male:Male;Female:Female'), "searchoptions" => array("defaultValue" => $default)), $options);
     }
@@ -183,7 +176,7 @@ else if (alertText.match(/^.*No$/))
         $this->id_EL = uniqid("_");
         $this->createColModel();
         $this->pager = $this->getPager();
-        $this->exec_EL = $this->encrypt($this->sql_EL, "mdsFoss");
+        $this->exec_EL = $this->encrypt($this->sql_EL, PASSWORD);
         foreach ($this->colModel_JSAR as $column) {
             $this->rowid = $column->getIndex();
             $this->sidx = $column->getIndex();
@@ -203,10 +196,10 @@ else if (alertText.match(/^.*No$/))
     }
 
     function createColModel() {
-   $result = mysql_query($this->sql_EL);
-		$num_rows = mysql_num_rows($result);
-		
-		
+        $result = mysql_query($this->sql_EL);
+        $num_rows = mysql_num_rows($result);
+
+
         $count = mysql_num_rows($result);
         $i = 0;
         while ($i < mysql_num_fields($result)) {
@@ -214,7 +207,7 @@ else if (alertText.match(/^.*No$/))
             $meta = mysql_fetch_field($result, $i);
             $column = new MDSPagerColumn($this->id_EL);
 
-            if ($meta) {  
+            if ($meta) {
                 $title = $meta->name;
                 $table = $meta->table;
 //                if (!$table)
@@ -222,16 +215,15 @@ else if (alertText.match(/^.*No$/))
 
                 $column->setIndex($uid);
                 $column->setName($uid);
-				
+
                 $column->setName_EL($title);
                 $column->setTable($table);
                 $column->setWidth(0);
-				$column->setSortable(true);
+                $column->setSortable(true);
                 $column->setAlign('left');
                 array_push($this->colNames_JSAR, $title);
                 $this->caption = $table;
-            } 
-			else {
+            } else {
                 $column->setDisplay('Default');
                 $column->setName('Default');
                 $column->setTable('');
@@ -246,7 +238,7 @@ else if (alertText.match(/^.*No$/))
             $i++;
         }
         mysql_free_result($result);
-			
+
 //        print_r($this->colModel);
     }
 
@@ -268,6 +260,7 @@ else if (alertText.match(/^.*No$/))
         $ddmodel = substr($ddmodel, 0, -1);
         return $ddmodel;
     }
+
 //
     public function render($echoEnabled = true) {
         $js = '<script type="text/javascript">';
@@ -335,7 +328,6 @@ else if (alertText.match(/^.*No$/))
             return $js;
         }
     }
-
 
     private function getEncCellModel() {
         $toenc = '[' . $this->getDataModel() . ']';
@@ -465,8 +457,8 @@ else if (alertText.match(/^.*No$/))
     public function setDivStyle($div_Style) {
         $this->divstyle_EL = $div_Style;
     }
-	
-	  public function setColor($color) {
+
+    public function setColor($color) {
         $this->color = $color;
     }
 
@@ -641,14 +633,14 @@ else if (alertText.match(/^.*No$/))
     public function setRowid($rowid) {
         $this->rowid = $rowid;
     }
-	
-	/*   public function setRowclass($rowclass) {
-        $this->rowclass = $rowclass;
-    }*/
+
+    /*   public function setRowclass($rowclass) {
+      $this->rowclass = $rowclass;
+      } */
 
     public function getAfterInsertRow() {
         if ($this->afterInsertRow_JS) {
-           return "function(rowid, data){{$this->afterInsertRow_JS}}";
+            return "function(rowid, data){{$this->afterInsertRow_JS}}";
         } else {
             return "function(rowid, data){}";
         }
@@ -661,8 +653,8 @@ else if (alertText.match(/^.*No$/))
     public function setWidths_EL($widths_EL) {
         $this->widths_EL = $widths_EL;
     }
-	
-	  public function setColor_EL($color_EL) {
+
+    public function setColor_EL($color_EL) {
         $this->color_EL = $color_EL;
     }
 
@@ -705,6 +697,7 @@ else if (alertText.match(/^.*No$/))
     public function setShowFilterRow($showFilterRow_EL) {
         $this->showFilterRow_EL = $showFilterRow_EL;
     }
+
     /**
      * set pager visibility.default to true
      */
@@ -712,7 +705,6 @@ else if (alertText.match(/^.*No$/))
         $this->showPager_EL = $showPager_EL;
     }
 
-    
     /**
      * @param String afterInsertRow javascript code to
      * execute after insert new row

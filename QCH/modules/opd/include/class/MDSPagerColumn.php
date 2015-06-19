@@ -1,56 +1,58 @@
 <?php
 
 /*
---------------------------------------------------------------------------------
-HHIMS - Hospital Health Information Management System
-Copyright (c) 2011 Information and Communication Technology Agency of Sri Lanka
-<http: www.hhims.org/>
-----------------------------------------------------------------------------------
-This program is free software: you can redistribute it and/or modify it under the
-terms of the GNU Affero General Public License as published by the Free Software 
-Foundation, either version 3 of the License, or (at your option) any later version.
+  --------------------------------------------------------------------------------
+  HHIMS - Hospital Health Information Management System
+  Copyright (c) 2011 Information and Communication Technology Agency of Sri Lanka
+  <http: www.hhims.org/>
+  ----------------------------------------------------------------------------------
+  This program is free software: you can redistribute it and/or modify it under the
+  terms of the GNU Affero General Public License as published by the Free Software
+  Foundation, either version 3 of the License, or (at your option) any later version.
 
-This program is distributed in the hope that it will be useful,but WITHOUT ANY 
-WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR 
-A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.
+  This program is distributed in the hope that it will be useful,but WITHOUT ANY
+  WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS FOR
+  A PARTICULAR PURPOSE. See the GNU Affero General Public License for more details.
 
-You should have received a copy of the GNU Affero General Public License along 
-with this program. If not, see <http://www.gnu.org/licenses/> or write to:
-Free Software  HHIMS
-C/- Lunar Technologies (PVT) Ltd,
-15B Fullerton Estate II,
-Gamagoda, Kalutara, Sri Lanka
----------------------------------------------------------------------------------- 
-Author: Mr. Thurairajasingam Senthilruban   TSRuban[AT]mdsfoss.org
-Consultant: Dr. Denham Pole                 DrPole[AT]gmail.com
-URL: http: www.hhims.org
-Class Author: Gihan Seneviratna
-URL: http://www.mdsfoss.org
-----------------------------------------------------------------------------------
-*/
+  You should have received a copy of the GNU Affero General Public License along
+  with this program. If not, see <http://www.gnu.org/licenses/> or write to:
+  Free Software  HHIMS
+  C/- Lunar Technologies (PVT) Ltd,
+  15B Fullerton Estate II,
+  Gamagoda, Kalutara, Sri Lanka
+  ----------------------------------------------------------------------------------
+  Author: Mr. Thurairajasingam Senthilruban   TSRuban[AT]mdsfoss.org
+  Consultant: Dr. Denham Pole                 DrPole[AT]gmail.com
+  URL: http: www.hhims.org
+  Class Author: Gihan Seneviratna
+  URL: http://www.mdsfoss.org
+  ----------------------------------------------------------------------------------
+ */
 /**
  * Description of MDSPagerColumn
  *
  * @author kavinga
  */
+include_once '../config.php';
+
 class MDSPagerColumn {
 
     private $name = 'c1';
     private $index = 'i1';
     private $width = 40;
-	//private $bgcolor='#FF0000';
+    //private $bgcolor='#FF0000';
     private $align = 'left';
     private $sortable = true;
     private $ddtype_EL = 'DDTYPE';
     private $id_EL;
-    private $table_EL='';
-    private $name_EL='';
+    private $table_EL = '';
+    private $name_EL = '';
 
     function __construct($id_EL) {
         $this->id_EL = $id_EL;
     }
 
-    function encrypt($str, $key='mdsFoss') {
+    function encrypt($str, $key=PASSWORD) {
         $block = mcrypt_get_block_size('des', 'ecb');
         if (($pad = $block - (strlen($str) % $block)) < $block) {
             $str .= str_repeat(chr($pad), $pad);
@@ -125,7 +127,7 @@ class MDSPagerColumn {
         $model = '';
         switch (gettype($value)) {
             case 'string':
-                $model.='"'.$value.'",';
+                $model.='"' . $value . '",';
                 break;
             case 'integer':
                 $model.=$value;
@@ -190,14 +192,15 @@ class MDSPagerColumn {
     public function setWidth($width) {
         $this->width = $width;
     }
-    
-	public function getBgcolor() {
+
+    public function getBgcolor() {
         return $this->bgcolor;
     }
-	 public function setBgcolor($bgcolor) {
+
+    public function setBgcolor($bgcolor) {
         $this->bgcolor = $bgcolor;
     }
-	
+
     public function getAlign() {
         return $this->align;
     }
@@ -214,7 +217,7 @@ class MDSPagerColumn {
 //        $this->sortable = $sortable ? 'true' : 'false';
         $this->sortable = $sortable;
     }
-    
+
     public function setTable($table) {
         $this->table_EL = $table;
     }
@@ -226,7 +229,6 @@ class MDSPagerColumn {
     public function getName_EL() {
         return $this->name_EL;
     }
-
 
 }
 
