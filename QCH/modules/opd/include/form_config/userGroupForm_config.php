@@ -34,7 +34,7 @@ URL: http: www.hhims.org
 $userGroupForm = array();
 $userGroupForm["OBJID"] = "UGID";
 $userGroupForm["TABLE"] = "user_group";
-$userGroupForm["LIST"] = array( 'UGID', 'Name','MainMenu','Scan_Redirect','Active');
+$userGroupForm["LIST"] = array( 'UGID', 'Name','MainMenu','ScanRedirect','Active');
 $userGroupForm["DISPLAY_LIST"] = array( 'ID', 'Name','Home page','Redirect page','Active');
 $userGroupForm["DISPLAY_WIDTH"] = array( '10%', '50%','20%','20%', '10%');
 $userGroupForm["NEXT"]  = "home.php?page=preferences&mod=userGroup&UGID=";	
@@ -57,7 +57,7 @@ $userGroupForm["FLD"]=array(array(
                                     "valid"=>"*"
                                     ),
                             array(
-                                    "Id"=>"Scan_Redirect",    "Name"=>"Scan redirect page",  "Type"=>"select",
+                                    "Id"=>"ScanRedirect",    "Name"=>"Scan redirect page",  "Type"=>"select",
                                    "Value"=>array("Patient Overview","Labtests","Prescriptions","Treatments"),  "Help"=>"Redirect page when patient slip scanned",  "Ops"=>"",
                                     "valid"=>"*"
                                     ),    
