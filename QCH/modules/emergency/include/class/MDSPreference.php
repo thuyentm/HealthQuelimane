@@ -80,6 +80,8 @@ class MDSPreference {
 
         //set actions
         $action = $frm["ACTION"];
+        if($_SESSION["UGID"]==2 || $_SESSION["UGID"]==6){
+            if($fName=='userForm'){
         $pager->gridComplete_JS = "function() {
             var c = null;
             $('.jqgrow').mouseover(function(e) {
@@ -93,8 +95,29 @@ class MDSPreference {
                 window.location='$action'+rowId;
             });
             }";
-        
-        //report starts
+            }
+        }
+        else if($fName!='userForm'){
+          $pager->gridComplete_JS = "function() {
+            var c = null;
+            $('.jqgrow').mouseover(function(e) {
+                var rowId = $(this).attr('id');
+                c = $(this).css('background');
+                $(this).css({'background':'yellow','cursor':'pointer'});
+            }).mouseout(function(e){
+                $(this).css('background',c);
+            }).click(function(e){
+                var rowId = $(this).attr('id');
+                window.location='$action'+rowId;
+            });
+            }";   
+            
+            
+            
+            
+        }
+        //report st
+        //arts
         $pager->setOrientation_EL($frm["ORIENT"]);
         $pager->setTitle_EL($frm["TITLE"]);
 //        $pager->setSave_EL($frm["SAVE"]);
@@ -524,9 +547,11 @@ return false;
                 $out .= "<div id='prefCont' >" . loadForm("myForm") . "</div>";
                 break;
             default:
-                $out .= loadHeader("System User");
+                $out .= loadHeader("System Users");
+                if($_SESSION["UGID"]==2 || $_SESSION["UGID"]==6){
                 $Btns = "<input type='button' value='Add new User / Staff'  onclick=self.document.location='home.php?page=preferences&mod=UserNew'>";
 //                $Btns .= "<input type='button' value='Print this list' onclick=printTable('userForm','FirstName');>";
+                }
                 $out .= "<div id='prefOps'>" . $Btns . "</div>";
                 $out .= $this->loadMDSPager("userForm");
         }
