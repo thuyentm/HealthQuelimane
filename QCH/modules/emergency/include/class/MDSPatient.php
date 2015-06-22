@@ -286,6 +286,51 @@ class MDSPatient extends MDSPersistent
 		$mdsDB->close();
 		return $out;
 	}
+        
+     /*   public function loadEmergencyAdmissionInfo()
+	{	
+		include_once 'MDSUser.php';
+		if (!$this->Fields[$this->ObjField]) return NULL;
+		$mdsDB = MDSDataBase::GetInstance();
+		$mdsDB->connect();		
+		$result=$mdsDB->mysqlQuery("SELECT * FROM emergency_admission where PID ='".$this->getValue("PID")."' ORDER BY DateTimeOfVisit DESC"); 
+		if (!$result) {
+				echo " <script language='javascript'> \n" ;
+				echo " jQuery().ready(function(){ \n";
+				echo " $('#MDSError').html('Patient not found!'); \n";
+				echo "}); \n";
+				echo " </script>\n";
+				return "";
+		}		
+		$count = $mdsDB->getRowsNum($result);
+		if ($count == 0) return NULL;
+		$out  = "<div class='opdCont'>\n";
+			$out .= "<div class='opdHead' id='popdh'>".getPrompt("Visits")."</div>\n";
+			$out .= "<div class='opdBody' id='popdb'>\n";
+			$out .= "<table border=0 width=100% cellspacing=0   class='opdTbl'>\n";
+			$i = 0;
+
+				while($row = $mdsDB->mysqlFetchArray($result))  {
+					$i++;
+					$doctor = new MDSUser();
+					$doctor->openId($row["Observation_Doctor"]);
+					$vst_dte = date_parse($row["DateTimeOfVisit"]);
+					$btn = " onmousedown = reDirect('emergency','EMRID=".$row["EMRID"]."&action=View') ";
+					$out .= "<tr title='Open this entry' onmouseover=changeOver(this); onmouseout=changeOut(this); ".$btn.">\n"; 
+					$out .= "<td width=100>".getMDSDate($vst_dte)."</td><td>".$row["VisitType"]."</td><td>".$row["Complaint"]."</td><td>".$row["ICD_Text"]."</td><td align='right'>".$doctor->getFullName()."</td>\n";
+					$out .= "</tr>\n";					
+				}
+			$out .= "</table>\n";	
+			$out .= "</div>\n";
+		$out .= "</div>\n";
+		$out .= "<script language='javascript'>\n";
+			$out .= " $('#popdh').click(function(){ $('#popdb').toggle('fast'); }).css({'cursor':'pointer'}); \n";
+			$out .= "\n";
+		$out .= "</script>\n";		
+		$mdsDB->close();
+		return $out;
+	} */
+        
 	public function loadAdmissionInfo()
 	{
 		include_once 'MDSUser.php';

@@ -69,6 +69,37 @@ function  loadOpd($pid){
     $visit_page->setOrientation_EL("L");
     echo $visit_page->render();   
 }
+
+function  loadEmergency($pid){
+	$qry = "SELECT emergency_admission.EMRID , SUBSTRING(emergency_admission.DateTimeOfVisit,1,10) as dte,
+	CONCAT(u.Title,u.FirstName,' ',u.OtherName ) 
+	FROM emergency_admission,`user` as u
+	where (emergency_admission.PID =$pid) and (u.UID = emergency_admission.Observation_Doctor) 	";
+    $visit_page = new MDSPager($qry);
+    $visit_page->setDivId("opd_cont"); //important
+    $visit_page->setDivClass('');
+    $visit_page->setRowid('EMRID'); 
+    $visit_page->setCaption("Previous Emergency Admissions"); 
+	$visit_page->setShowHeaderRow(false);
+	$visit_page->setShowFilterRow(false);
+    $visit_page->setColNames(array("ID","",""));
+    $visit_page->setRowNum(25);
+    $visit_page->setColOption("EMRID",array("search"=>false,"hidden" => true));
+	$visit_page->setColOption("dte",array("search"=>false,"hidden" => false,"width"=>75));
+    $visit_page->gridComplete_JS = "function() {
+        $('#opd_cont .jqgrow').mouseover(function(e) {
+            var rowId = $(this).attr('id');
+            $(this).css({'cursor':'pointer'});
+        }).mouseout(function(e){
+        }).click(function(e){
+            var rowId = $(this).attr('id');
+            window.location='home.php?page=emergency&mod=&action=View&EMRID='+rowId;
+        });
+        }";
+    $visit_page->setOrientation_EL("L");
+    echo $visit_page->render();   
+}
+
 function  loadAdmission($pid){
 	$qry = "SELECT admission.ADMID , SUBSTRING(admission.AdmissionDate,1,10) as dte,admission.Complaint,admission.OutCome,
 	CONCAT(user.Title,user.OtherName ) 
@@ -318,6 +349,7 @@ function loadPatientSummary($action) {
 	</table>
 	</div>";
 	loadOpd($pid);
+        loadEmergency($pid);
 	loadAdmission($pid);
 	loadExam($pid);
 	loadHistory($pid);
