@@ -190,9 +190,9 @@ class MDSLeftMenu {
         $menu .="<a href='#1'>" . getPrompt("Commands") . "</a>\n";
         $menu .="<div> \n";
         if ($_GET["WID"]) {
-            $menu .="<input type='button' class='submenuBtn' value='&laquo; " . getPrompt("Back to ward") . "'  onclick=window.history.back();>\n";
+            $menu .="<input type='button' class='submenuBtn' value='&laquo; " . getPrompt("Back to Ward") . "'  onclick=window.history.back();>\n";
         }
-        $menu .="<input type='button' class='submenuBtn' value='&laquo; " . getPrompt("Patient overview") . "'  onclick=self.document.location='home.php?page=patient&PID=" . $admission->getValue("PID") . "&action=View'>\n";
+        $menu .="<input type='button' class='submenuBtn' value='&laquo; " . getPrompt("Patient Overview") . "'  onclick=self.document.location='home.php?page=patient&PID=" . $admission->getValue("PID") . "&action=View'>\n";
         if (!$patient->haveAnyOpenedAdmission($admission->getValue("PID"))) {
             $menu .="<input type='button' class='submenuBtn' value='" . getPrompt("Refer to Admission") . "' onclick=self.document.location='home.php?page=admission&action=New&PID=" . $admission->getValue("PID") . "&PCUID=" . $admission->getValue("PCUID") . "'>\n";
         }
@@ -203,7 +203,8 @@ class MDSLeftMenu {
         $menu .= $this->addAdmissionCommand($admission, 'admission_diagnosis', 'Add Final Diagnosis');
         //$menu .= $this->addAdmissionCommand($admission,'admission_treatment','Treatments');
         $menu .= $this->addAdmissionCommand($admission, 'admLabOrder', 'Order lab test');
-        $menu .= $this->addAdmissionCommand($admission, 'admPrescription', 'Prescribe drugs');
+        $menu .= $this->addAdmissionCommand($admission, 'admRadiologyOrder', 'Order Radiology Test');
+        $menu .= $this->addAdmissionCommand($admission, 'admPrescription', 'Prescribe Drugs');
         $menu .= $this->addAdmissionCommand($admission, 'admission_procedures', 'Procedures');
         $menu .= $this->addAdmissionCommand($admission, 'admission_notes', 'Notes');
         //$menu .= $this->addAdmissionCommand($admission,'admission_tranfer','Ward transfer');
@@ -240,9 +241,9 @@ class MDSLeftMenu {
         $menu .="<a href='#1'>" . getPrompt("Commands") . "</a>\n";
         $menu .="<div> \n";
         if ($_GET["WID"]) {
-            $menu .="<input type='button' class='submenuBtn' value='&laquo; " . getPrompt("Back to ward") . "'  onclick=window.history.back();>\n";
+            $menu .="<input type='button' class='submenuBtn' value='&laquo; " . getPrompt("Back to Ward") . "'  onclick=window.history.back();>\n";
         }
-        $menu .="<input type='button' class='submenuBtn' value='&laquo; " . getPrompt("Patient overview") . "'  onclick=self.document.location='home.php?page=patient&PID=" . $admission->getValue("PID") . "&action=View'>\n";
+        $menu .="<input type='button' class='submenuBtn' value='&laquo; " . getPrompt("Patient Overview") . "'  onclick=self.document.location='home.php?page=patient&PID=" . $admission->getValue("PID") . "&action=View'>\n";
         if ($_SESSION["UGID"] != 10) {
             if (!$patient->haveAnyOpenedAdmission($admission->getValue("PID"))) {
                 $menu .="<input type='button' class='submenuBtn' value='" . getPrompt("Refer to Admission") . "' onclick=self.document.location='home.php?page=admission&action=New&PID=" . $admission->getValue("PID") . "&PCUID=" . $admission->getValue("PCUID") . "'>\n";
@@ -253,8 +254,9 @@ class MDSLeftMenu {
             $menu .= $this->addAdmissionCommand($admission, 'admission_diagnosis', 'Add Running Diagnosis');
             $menu .= $this->addAdmissionCommand($admission, 'admission_diagnosis', 'Add Final Diagnosis');
             //$menu .= $this->addAdmissionCommand($admission,'admission_treatment','Treatments');
-            $menu .= $this->addAdmissionCommand($admission, 'admLabOrder', 'Order lab test');
-            $menu .= $this->addAdmissionCommand($admission, 'admPrescription', 'Prescribe drugs');
+            $menu .= $this->addAdmissionCommand($admission, 'admLabOrder', 'Order Lab Test');
+            $menu .= $this->addAdmissionCommand($admission, 'admRadiologyOrder', 'Order Radiology Test');
+            $menu .= $this->addAdmissionCommand($admission, 'admPrescription', 'Prescribe Drugs');
             $menu .= $this->addAdmissionCommand($admission, 'admission_procedures', 'Procedures');
             $menu .= $this->addAdmissionCommand($admission, 'admission_notes', 'Notes');
             //$menu .= $this->addAdmissionCommand($admission,'admission_tranfer','Ward transfer');
