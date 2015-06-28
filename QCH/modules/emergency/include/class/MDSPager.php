@@ -68,51 +68,22 @@ class MDSPager {
     private $mtype = 'POST';
     private $rowid;
     private $rowclass;
-    private $onSelectRow_JS = "function(rowid){ }";
-    private $afterInsertRow_JS = "function(rowid,data){
-		
-	var alertText = '';
-	
-for (property in data) {
-	
-alertText +=data[property];
-
-}
-
-if (alertText.match(/^.*Critical$/)) 
-{ 
-   $('#'+rowid).css({'background':'#EE2C2C'});
-}
-
-else if (alertText.match(/^.*Non Urgent$/)) 
-{ 
-    $('#'+rowid).css({'background':'#00FF00'});
-}
-
-else if (alertText.match(/^.*Urgent$/)) 
-{ 
-    $('#'+rowid).css({'background':'#FFFF00'});
-}
-
-
-
-
-
-   	}";
     private $colIndexes_EL = array();
+    private $onSelectRow_JS = "function(rowid){ }";
+    private $afterInsertRow_JS = "function(rowid,rowData){ }";
     private $showHeaderRow_EL = 1;
     private $showFilterRow_EL = 1;
     private $showPager_EL = 1;
-    //private $toppager_JS = 'true';$(this).jqGrid('setRowData', rowid, false, 'StyleCss');
+//private $toppager_JS = 'true';$(this).jqGrid('setRowData', rowid, false, 'StyleCss');
 //    private $pgbuttons_JS='false';
 //    private $pgtext_JS='null';
 //    private $viewrecords_JS='false';
-    //TSR
+//TSR
     private $divid_EL = '';
     private $divstyle_EL = '';
     private $divclass_EL = '';
     private $color = '';
-    //properties used in reports
+//properties used in reports
     private $widths_EL = array();
     private $color_EL = array();
     private $orientation_EL = 'P';
@@ -121,6 +92,7 @@ else if (alertText.match(/^.*Urgent$/))
     private $save_EL = '';
     private $report_EL = 'print_pager';
     private $link_EL;
+    private $mode;
 
     public static function getGenderSelector($default = '', $options = array()) {
         return array_merge(array('stype' => 'select', 'editoptions' => array('value' => ':All;Male:Male;Female:Female'), "searchoptions" => array("defaultValue" => $default)), $options);
@@ -167,6 +139,7 @@ else if (alertText.match(/^.*Urgent$/))
             $this->sidx = $column->getIndex();
             continue;
         }
+        
     }
 
     public function __destruct() {
@@ -248,9 +221,35 @@ else if (alertText.match(/^.*Urgent$/))
 
 //
     public function render($echoEnabled = true) {
+        if ($this->mode == 'waitingpatient'){
+            $this->afterInsertRow_JS = "function(rowid,rowData){
+                var alertText = '';
+	
+                for (property in rowData) {
+                    alertText +=rowData[property];
+                }
+
+                if (alertText.match(/^.*Critical$/)) 
+                { 
+                   $('#'+rowid).css({'background':'#EE2C2C'});
+                }
+
+                else if (alertText.match(/^.*Non Urgent$/)) 
+                { 
+                    $('#'+rowid).css({'background':'#00FF00'});
+                }
+
+                else if (alertText.match(/^.*Urgent$/)) 
+                { 
+                    $('#'+rowid).css({'background':'#FFFF00'});
+                }
+                
+            }";
+        }
+        
         $js = '<script type="text/javascript">';
         $js.= "\n";
-        //TSR: to load the table in given DIV
+//TSR: to load the table in given DIV
         $js .= "$(\"<div id='" . $this->divid_EL . "' style='" . $this->divstyle_EL . "' class='" . $this->divclass_EL . "'></div>\").appendTo('body');\n";
         $js .= "$(\"<table id='grid{$this->getId()}' class='scroll' cellpadding='0' cellspacing='0'></table>\").appendTo($('#" . $this->divid_EL . "'));\n";
         $js .= "$(\"<div id='pager{$this->getId()}' class='scroll' style='text-align:center;'></div>\").appendTo($('#" . $this->divid_EL . "'));\n";
@@ -266,7 +265,15 @@ else if (alertText.match(/^.*Urgent$/))
             var sortorder={$this->getGrid()}.jqGrid('getGridParam','sortorder');
             var params={};
             params._search=false;
-            for (var i=0;i<data.length;i++){var val=$('#gs_'+data[i]).val();if(val!='' && val!=undefined){params[data[i]]=val;params._search=true;};};
+            for (var i=0;i<data.length;i++){
+                var val=$('#gs_'+data[i]).val();
+                if(val!='' && val!=undefined){
+                    params[data[i]]=val;
+                    params._search=true;
+                };
+                
+                
+            };
             params.sidx=sortname;
             params.sord=sortorder;
             params.exec=\"{$this->exec_EL}\";
@@ -312,6 +319,8 @@ else if (alertText.match(/^.*Urgent$/))
         } else {
             return $js;
         }
+        
+        
     }
 
     private function getEncCellModel() {
@@ -430,7 +439,7 @@ else if (alertText.match(/^.*Urgent$/))
         return substr($names, 0, -1);
     }
 
-    //TSR
+//TSR
     public function setDivId($div_id) {
         $this->divid_EL = $div_id;
     }
@@ -625,9 +634,9 @@ else if (alertText.match(/^.*Urgent$/))
 
     public function getAfterInsertRow() {
         if ($this->afterInsertRow_JS) {
-            return "function(rowid, data){{$this->afterInsertRow_JS}}";
+            return "function(rowid, rowData){{$this->afterInsertRow_JS}}";
         } else {
-            return "function(rowid, data){}";
+            return "function(rowid, rowData){}";
         }
     }
 
@@ -698,6 +707,10 @@ else if (alertText.match(/^.*Urgent$/))
      */
     public function setAfterInsertRow($afterInsertRow) {
         $this->afterInsertRow_JS = $afterInsertRow;
+    }
+
+    public function setMode($mode) {
+        $this->mode = $mode;
     }
 
 }

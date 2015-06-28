@@ -91,7 +91,7 @@ function loadLaboratoryTable($mode,$user){
 
 
 	$pager2 = new MDSPager($qry);	
-	
+	$pager2->setMode($mode);
 	$pager2->setDivId('prefCont'); 
 	$pager2->setDivClass('');
 	//$pager2->SetColor($color);
