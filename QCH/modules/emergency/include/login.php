@@ -37,17 +37,17 @@ function doAuth($username, $password) {
         $username = mysql_real_escape_string($username);
         $password = md5(mysql_real_escape_string($password));
         
-        $sql=" SELECT user.UID,user.FirstName,user.OtherName,user.UserGroup,hospital.Name, hospital.HID,user.DefaultLanguage  ";
+        $sql=" SELECT user.UID,user.FirstName,user.OtherName,user.UserGroup,user.Department, hospital.Name, hospital.HID,user.DefaultLanguage  ";
         $sql .= " FROM user,hospital WHERE user.UserName='$username' and user.Password='$password'  " ;
         $sql .= " and user.HID = hospital.HID and user.Active = 1 " ;
         $result=mysql_query($sql);       
         $count=mysql_num_rows($result);
         if ($count ==1 ){
             $row = mysql_fetch_row($result);
-            $_SESSION["LANG"] = $row [6];
-             return array ($row [0],$row [1],$row [2],$row [3],$row [4],$row [5],$row [6]);
+            $_SESSION["LANG"] = $row [7];
+             return array ($row [0],$row [1],$row [2],$row [3],$row [4],$row [5],$row [6],$row [7]);
         }
-
+        
        return NULL;
     }
     
