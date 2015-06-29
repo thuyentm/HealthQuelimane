@@ -72,11 +72,11 @@ URL: http: www.hhims.org
 	 
 	 <center style="font-family:Times New Roman;color:green;font-size:25px;">Main Menu </center> <br>  <br>
          <center>
-	 <a href="modules/opd/login.php"><img src="index_resources/images/outpatient.jpg" onmouseover="this.width=310;this.height=200;" onmouseout="this.width=210;this.height=150" alt="Out Patient Department" width="210" height="150" ></a>
+	 <a href="modules/opd/login.php"><img src="index_resources/images/opd.JPG" onmouseover="this.width=310;this.height=200;" onmouseout="this.width=210;this.height=150" alt="Out Patient Department" width="210" height="150" ></a>
 	 &nbsp &nbsp &nbsp &nbsp &nbsp
-	 <a href="modules/emergency/login.php"><img src="index_resources/images/emergency1.jpg" onmouseover="this.width=310;this.height=200;" onmouseout="this.width=210;this.height=150" alt="Emergency" width="210" height="150" ></a>
+	 <a href="modules/emergency/login.php"><img src="index_resources/images/emergency.JPG" onmouseover="this.width=310;this.height=200;" onmouseout="this.width=210;this.height=150" alt="Emergency" width="210" height="150" ></a>
 	 &nbsp &nbsp &nbsp &nbsp &nbsp
-	 <a href="modules/inward/login.php"><img src="index_resources/images/clinic1.jpg" onmouseover="this.width=310;this.height=200;" onmouseout="this.width=210;this.height=150" alt="In-Ward" width="250" height="150" ></a>
+	 <a href="modules/inward/login.php"><img src="index_resources/images/inward.JPG" onmouseover="this.width=310;this.height=200;" onmouseout="this.width=210;this.height=150" alt="In-Ward" width="250" height="150" ></a>
 	 
          </center>
   	    			

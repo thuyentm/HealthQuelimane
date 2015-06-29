@@ -66,7 +66,7 @@ URL: http: www.hhims.org
      
 <div class="left">
 		<span class="img2"><img src="images/logo_moz.png" /></span>
-  	    <span class="img1"><img src="images/pcuicon1.png" /></span>
+  	
   	 </div> 
   	 <div class="right">
   	    			<form action="include/logincheck.php" method="post">
