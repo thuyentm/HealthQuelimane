@@ -60,9 +60,6 @@
     </head>
     <body >
 
-
-
-
         <div class="left">
             <span class="imgdefault"><img src="index_resources/images/logo_moz.png" /></span>
 
@@ -72,43 +69,15 @@
 
             <center style="font-family:Times New Roman;color:green;font-size:25px;">Main Menu </center> <br>  <br>
             <center>
-                <a href="modules/opd/login.php"><img src="index_resources/images/opd.JPG" onmouseover="this.width=310;this.height=200;" onmouseout="this.width=210;this.height=150" alt="Out Patient Department" width="210" height="150" ></a>
+                <a href="modules/opd/login.php"><img src="index_resources/images/opd.JPG" onmouseover="this.width=200;this.height=200;" onmouseout="this.width=200;this.height=200" alt="Out Patient Department" width="200" height="200" ></a>
                 &nbsp &nbsp &nbsp &nbsp &nbsp
-                <a href="modules/emergency/login.php"><img src="index_resources/images/emergency.JPG" onmouseover="this.width=310;this.height=200;" onmouseout="this.width=210;this.height=150" alt="Emergency" width="210" height="150" ></a>
+                <a href="modules/emergency/login.php"><img src="index_resources/images/emergency.JPG" onmouseover="this.width=200;this.height=200;" onmouseout="this.width=200;this.height=200" alt="Emergency Department" width="200" height="200" ></a>
                 &nbsp &nbsp &nbsp &nbsp &nbsp
-                <a href="modules/inward/login.php"><img src="index_resources/images/inward.JPG" onmouseover="this.width=310;this.height=200;" onmouseout="this.width=210;this.height=150" alt="In-Ward" width="250" height="150" ></a>
+                <a href="modules/inward/login.php"><img src="index_resources/images/inward.JPG" onmouseover="this.width=200;this.height=200;" onmouseout="this.width=200;this.height=200" alt="In-Ward" width="200" height="200" ></a>
 
             </center>
 
         </div>
-
-
-<<<<<<< HEAD
-=======
-     
-<div class="left">
-		<span class="imgdefault"><img src="index_resources/images/logo_moz.png" /></span>
-  	    
-  	 </div> 
-	 
-	 <div class="panedefault">
-	 
-	 <center style="font-family:Times New Roman;color:green;font-size:25px;">Main Menu </center> <br>  <br>
-         <center>
-	 <a href="modules/opd/login.php"><img src="index_resources/images/opd.JPG" onmouseover="this.width=200;this.height=200;" onmouseout="this.width=200;this.height=200" alt="Out Patient Department" width="200" height="200" ></a>
-	 &nbsp &nbsp &nbsp &nbsp &nbsp
-	 <a href="modules/emergency/login.php"><img src="index_resources/images/emergency.JPG" onmouseover="this.width=200;this.height=200;" onmouseout="this.width=200;this.height=200" alt="Emergency Department" width="200" height="200" ></a>
-	 &nbsp &nbsp &nbsp &nbsp &nbsp
-	 <a href="modules/inward/login.php"><img src="index_resources/images/inward.JPG" onmouseover="this.width=200;this.height=200;" onmouseout="this.width=200;this.height=200" alt="In-Ward" width="200" height="200" ></a>
-	 
-         </center>
-  	    			
-		</div>
- 
->>>>>>> 20a5ac42e70904f28c003990453f6a8f9e6e46f3
-
-
-
 
 
     </body>
