@@ -166,14 +166,14 @@ class MDSContent
 				include "include/form.php";
 				echo loadEmergencyAdmissionScreen($mdsfoss->Action);
 			}
-                        if ($mdsfoss->Action == "View") {
+                       /* if ($mdsfoss->Action == "View") {
 				if (!$mdsPermission->haveAccess($_SESSION["UGID"],"opd_visit_View")) {
 					echo mdsError("You dont have enough permission to read a 'Visit' <br> Contact your system Administrator!");
 					return;
 				}
 				include "include/emergency.php";
 				echo loadEmergencySummary();
-                        }
+                        }*/
 			else if($mdsfoss->Action == 'Edit'){
 				if (!$mdsPermission->haveAccess($_SESSION["UGID"],"admission_Edit")) {
 					echo mdsError("You dont have enough permission to Edit an Emergency Admission <br> Contact your system Administrator!");
@@ -386,7 +386,19 @@ class MDSContent
 				include "include/form.php";
 				echo loadAdmissionDiagnosisScreen();
 			}
-		}	
+		}
+                
+                else if ( $mdsfoss->Page == "emergency_complaints" ) {
+			if ($mdsfoss->Action == 'Edit'){	
+				if (!$mdsPermission->haveAccess($_SESSION["UGID"],"admission_diagnosis_Edit")) {
+					echo mdsError("You dont have enough permission to Edit a 'Diagnosis' <br> Contact your system Administrator!");
+					return;
+				}
+				include "include/form.php";
+				echo loadEmergencyComplaintScreen(); 
+			}
+		}
+                
 		else if ( $mdsfoss->Page == "admission_procedures" ) {
 			if ($mdsfoss->Action == 'Edit'){	
 				if (!$mdsPermission->haveAccess($_SESSION["UGID"],"admission_procedures_Edit")) {

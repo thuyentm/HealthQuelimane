@@ -50,7 +50,7 @@ class MDSEmr extends MDSPersistent {
         parent::openId($pid);
         $this->patient = new MDSPatient();
         $this->patient->openId($this->getValue("PID"));
-        if ($this->isOneDayOld() >= 1)
+        if ($this->isOneDayOld() >= 2)
             $this->isOpened = false;
         else
             $this->isOpened = true;
@@ -142,6 +142,46 @@ class MDSEmr extends MDSPersistent {
         $out .= "</tr>\n";
         $out .= "<tr>\n";
         $out .= "<td style='height:25px'> Saturation : " . $this->getValue("Saturation") . "</td><td>Respiratory : " . $this->getValue("Respiratory") . "</td><td>Alert : " . $alert . "</td><td>Voice : " . $voice . "</td><td>Pain : " . $pain . "</td><td>UNR : " . $unr . "</td>\n";
+        $out .= "</tr>\n";
+        $out .= "<tr>\n";
+        $out .= "<td colspan=2 style='height:25px'>" . getPrompt("Remarks") . ": </td><td>" . $this->getValue("Remarks") . "</td><td colspan=2 align=right>";
+        if ($this->getValue("LastUpDateUser")) {
+            $out .= "<i>Last Access By : " . $this->getValue("LastUpDateUser") . "(" . $this->getValue("LastUpDate") . ")</i>";
+        } else {
+            $out .= "&nbsp;";
+        }
+        $out .= "</td>\n";
+        $out .= "</tr>\n";
+        $out .= "</table>\n";
+        $out .= "</div>\n";
+        $out .= "</div>\n";
+        $out .= "<div class='notesCont'>\n";
+        $out .= "</div>\n";
+        $out .= "<script language='javascript'>\n";
+        $out .= " $('#iadh').click(function(){ $('#iadb').toggle('fast'); }).css({'cursor':'pointer'}); \n";
+        //$out .= $this->checkTab('#iadb');
+        $out .= "\n";
+        $out .= "</script>\n";
+
+        return $out;
+    }
+    
+     public function loadComplaint() {
+        include_once 'MDSUser.php';
+
+        $doctor = new MDSUser();
+
+        $mdsPermission = MDSPermission::GetInstance();
+        if ($mdsPermission->haveAccess($_SESSION["UGID"], "admission_Edit"))
+            $tools = "<img   src='images/edit-icon.png' width=15 height=15  style='cursor:pointer;' title='Edit record'  onclick=self.document.location='home.php?page=emergency&EMRID=" . $this->getValue("EMRID") . "&action=Edit&PID=" . $this->getOpdPatient()->getId() . "'>";
+        //$tools .= "<img   src='images/add_note.jpg' style='cursor:pointer;' title='Add Notes' width=20 height=20  />";
+ 
+
+        $out = "<div class='" . $this->css_Cont_class . "' ><div class='opdHead' id='iadh'>" . getPrompt("Presenting Complaints") . "</div>\n";
+        $out .= "<div class='opdBody' id ='iadb' >\n";
+        $out .= "<table border=0 width=100% cellspacing=0   class='intadmTbl'>\n";
+        $out .= "<tr>\n";
+        $out .= "<td colspan=2 style='height:25px'>" . getPrompt("Complaints") . ": </td><td>" . $this->getValue("Complaint") . "</td><td colspan=2 >";
         $out .= "</tr>\n";
         $out .= "<tr>\n";
         $out .= "<td colspan=2 style='height:25px'>" . getPrompt("Remarks") . ": </td><td>" . $this->getValue("Remarks") . "</td><td colspan=2 align=right>";

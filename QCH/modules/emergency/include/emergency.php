@@ -70,6 +70,7 @@ function loadEmergencySummary() {
 	 
 	 echo  $emr->patient->patientBannerTiny();
 	 echo  $emr->loadEmr();	 
+         echo  $emr->loadComplaint($emr->isOpened);
 	 
 	// echo $emr->isOpened;
         

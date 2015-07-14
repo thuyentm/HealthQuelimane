@@ -112,6 +112,26 @@ function loadAdmissionDiagnosisScreen(){
 	echo $out.$frm;
 }
 
+function loadEmergencyComplaintScreen(){
+	include 'form_config/emergency_complaint_entryForm_config.php';
+	include_once 'class/MDSEmr.php';
+	include_once 'class/MDSForm.php';
+	$pid = $admid = $out = $frm = "";
+	$admid = $_GET["EMRID"];
+        if ($admid == "") { echo "Admission not found!"; return NULL; };
+	$admission = new MDSEmr();
+	$admission->openId($admid);
+	$patient = $admission->patient;
+	$form = new MDSForm();
+        $out .= addErrorDiv();
+	$out .= loadHeader("Presenting Complaints");
+	//$out .= $patient->patientBannerTiny();
+	$form->FrmName = "emergency_complaint_entryForm";
+	$blocked = !$admission->isOpened;
+    $frm = $form->render($emergency_complaint_entryForm,$blocked);	
+	echo $out.$frm;
+}
+
 function loadAdmissionProcedureScreen(){
 	include 'form_config/admission_procedures_entryForm_config.php';
 	include_once 'class/MDSAdmission.php';
@@ -161,12 +181,14 @@ function loadOpdVisitScreen($action){
 }
 
 function loadEmergencyAdmissionScreen($action){
-    include 'form_config/emergency_entryForm_config.php';
+        include 'form_config/emergency_entryForm_config.php';
 	include_once 'class/MDSPatient.php';
 	include_once 'class/MDSForm.php';
 	$pid = $out = $frm = "";
+      
     if (!$_SESSION['PID']) { echo "Patient not found!"; return NULL; };
 	$pid = $_GET["PID"];
+          
 	if ($pid == "") { echo "Patient not found!"; return NULL; };
 	$form = new MDSForm();
     $out .= addErrorDiv();
@@ -184,7 +206,7 @@ function loadEmergencyAdmissionScreen($action){
 		$out .= loadHeader("New Emergency Admission");
 	}
 	$form->FrmName = "emergency_entryForm";
-    $frm = $form->render($emergency_entryForm,$blocked);	
+        $frm = $form->render($emergency_entryForm,$blocked);	
 	echo $out.$frm;
 }
 
