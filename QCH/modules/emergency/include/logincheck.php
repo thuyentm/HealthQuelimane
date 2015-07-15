@@ -77,28 +77,28 @@ if ($_COOKIE["lock"] == 1) {
     quit;
 } else {
     list ($Uid, $FirstName, $OtherName, $UserGroup, $Department, $Hospital, $HID, $LANG ) = doAuth($username, $password);
-    
-    if($Department!=1 && $Department!=2 && $Department!=3){
-            $mlog = MDSLogger::GetInstance();
-            $username = stripslashes($username);
-            $password = stripslashes($password);
-            $username = mysql_real_escape_string($username);
-            $mlog->saveAccessLog("../logs/", "User:" . $username . " PW: " . $password);
-            session_start();
-            if (!isset($_COOKIE["count"])) {
-                setcookie("count", 1);
-            } else {
-                setcookie("count", $_COOKIE["count"] + 1);
-            }
-            if ($_COOKIE["count"] > 2) {
-                setcookie("count", 4, time() + 15);
-                setcookie("lock", 1, time() + 15);
-                echo $html;
-                exit;
-            } else {
-                echo "<script>window.location='../login.php?err=" . md5("-1") . "'</script>";
-                exit;
-            }
+
+    if ($Department != 1 && $Department != 2 && $Department != 3 && $Department != 9) {
+        $mlog = MDSLogger::GetInstance();
+        $username = stripslashes($username);
+        $password = stripslashes($password);
+        $username = mysql_real_escape_string($username);
+        $mlog->saveAccessLog("../logs/", "User:" . $username . " PW: " . $password);
+        session_start();
+        if (!isset($_COOKIE["count"])) {
+            setcookie("count", 1);
+        } else {
+            setcookie("count", $_COOKIE["count"] + 1);
+        }
+        if ($_COOKIE["count"] > 2) {
+            setcookie("count", 4, time() + 15);
+            setcookie("lock", 1, time() + 15);
+            echo $html;
+            exit;
+        } else {
+            echo "<script>window.location='../login.php?err=" . md5("-1") . "'</script>";
+            exit;
+        }
     }
     if ($Uid > 0) {
         session_register("username");
@@ -143,7 +143,7 @@ if ($_COOKIE["lock"] == 1) {
         echo "<script>window.location='../index.php'</script>";
         exit;
     } else {
-        
+
         $mlog = MDSLogger::GetInstance();
         $username = stripslashes($username);
         $password = stripslashes($password);

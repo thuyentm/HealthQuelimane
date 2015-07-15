@@ -77,7 +77,7 @@ if ($_COOKIE["lock"] == 1) {
     quit;
 } else {
     list ($Uid, $FirstName, $OtherName, $UserGroup, $Department, $Hospital, $HID, $LANG ) = doAuth($username, $password);
-    if ($Department != 1 && $Department != 7) {
+    if ($Department != 1 && $Department != 8 && $Department != 11) {
         $mlog = MDSLogger::GetInstance();
         $username = stripslashes($username);
         $password = stripslashes($password);
