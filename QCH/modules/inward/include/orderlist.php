@@ -41,7 +41,7 @@ function loadNurseMenu() {
     $menu .="<input type='button' class='submenuBtn' value='Order List'  onclick=self.document.location='home.php?page=orderlist&show=orderlist'>\n";
     //$menu .="<input type='button' class='submenuBtn' value='OPD patients'  onclick=self.document.location='home.php?page=orderlist&show=opdpatient'>\n";
     //$menu .="<input type='button' class='submenuBtn' value='Clinic patients'  onclick=self.document.location='home.php?page=orderlist&show=clinicpatient'>\n";
-    $menu .="<input type='button' class='submenuBtn' value='Ward patients'  onclick=self.document.location='home.php?page=orderlist&show=wardpatient'>\n";
+    //$menu .="<input type='button' class='submenuBtn' value='Ward patients'  onclick=self.document.location='home.php?page=orderlist&show=wardpatient'>\n";
     //$menu .="<input type='button' class='submenuBtn' value='OPD lab orders'  onclick=self.document.location='home.php?page=orderlist&show=labresult'>\n";
     //$menu .="<input type='button' class='submenuBtn' value='Ward lab orders'  onclick=self.document.location='home.php?page=orderlist&show=admlabresult'>\n";
     $menu .="</div>\n";

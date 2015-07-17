@@ -33,7 +33,7 @@ function loadProcedureRoomMenu() {
 			$menu .="<a>".getPrompt("Department")."</a>\n";
 			$menu .="<div> \n";
                              $menu .="<input type='button' class='submenuBtn' value='Procedure Room'  onclick=self.document.location='home.php?page=procedureroom' >\n";
-                             $menu .="<input type='button' class='submenuBtn' value='Collection Room' onclick=self.document.location='home.php?page=collectionroom' >\n";
+                             //$menu .="<input type='button' class='submenuBtn' value='Collection Room' onclick=self.document.location='home.php?page=collectionroom' >\n";
 			$menu .="</div> \n";
 	$menu .=" </div> \n";
 	$menu .="</div> \n";
