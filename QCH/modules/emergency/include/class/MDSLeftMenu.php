@@ -53,9 +53,9 @@ class MDSLeftMenu {
             $this->renderPatientLeftMenu($obj);
         } else if ($type == "emr") {
             $this->renderEmergencyLeftMenu($obj);
-        }  else if ($type == "Preference") {
+        } else if ($type == "Preference") {
             $this->renderPreferenceLeftMenu($obj);
-        }  else if ($type == "Message") {
+        } else if ($type == "Message") {
             $this->renderMessageLeftMenu();
         } else if ($type == "WardPlan") {
             $this->renderWardPlanMenu($obj);
@@ -74,15 +74,37 @@ class MDSLeftMenu {
         $menu .="<a  href='#1'>" . getPrompt("Commands") . "</a>\n";
         $menu .="<div> \n";
         //$menu .="<input type='button' class='submenuBtn' value='".getPrompt("Create a visit")."' onclick=self.document.location='home.php?page=opd&action=new&PID=".$patient->getValue("PID")."'>\n";
-        if (!$patient->haveAnyOpenedAdmission() && !$patient->haveAnyOpenedEmergencyAdmission()) {
-            
-            $menu .="<input type='button' class='submenuBtn' value='" . getPrompt("Create an Emergency Visit") . "' onclick=self.document.location='home.php?page=emergency&action=New&PID=" . $patient->getValue("PID") . "'>\n";
-        }
         
-        //$menu .= getAppointmentLink($patient->getValue("PID"));
-        $menu .= $this->addPatientHistoryCommand($patient);
-        $menu .= $this->addPatientAllergyCommand($patient);
-        $menu .= $this->addPatientExamCommand($patient, 'patient_exam', 'Examination', true);
+        /*context-menu for each user*/
+        switch ($_SESSION["UserGroup"]) {
+            case "EmrNurse": 
+                $menu .= $this->addPatientExamCommand($patient, 'patient_exam', 'Add Examination', true);
+                $menu .= $this->addEmergencyCommand($patient,'nurse_note','Add Note');
+                break;
+            case "TDoctor":
+                if (!$patient->haveAnyOpenedAdmission() && !$patient->haveAnyOpenedEmergencyAdmission()) {
+
+                    $menu .="<input type='button' class='submenuBtn' value='" . getPrompt("Create an Emergency Visit") . "' onclick=self.document.location='home.php?page=emergency&action=New&PID=" . $patient->getValue("PID") . "'>\n";
+                }
+
+                //$menu .= getAppointmentLink($patient->getValue("PID"));
+                $menu .= $this->addPatientHistoryCommand($patient);
+                $menu .= $this->addPatientAllergyCommand($patient);
+                $menu .= $this->addPatientExamCommand($patient, 'patient_exam', 'Examination', true);
+                break;
+            case "ODoctor":
+                if (!$patient->haveAnyOpenedAdmission() && !$patient->haveAnyOpenedEmergencyAdmission()) {
+
+                    $menu .="<input type='button' class='submenuBtn' value='" . getPrompt("Create an Emergency Visit") . "' onclick=self.document.location='home.php?page=emergency&action=New&PID=" . $patient->getValue("PID") . "'>\n";
+                }
+
+                //$menu .= getAppointmentLink($patient->getValue("PID"));
+                $menu .= $this->addPatientHistoryCommand($patient);
+                $menu .= $this->addPatientAllergyCommand($patient);
+                $menu .= $this->addPatientExamCommand($patient, 'patient_exam', 'Examination', true);
+                break;
+        }
+
         $menu .= getAttachLink('patient', $patient->getValue("PID"));
         $menu .="</div> \n";
         $menu .="<a href='#2'>" . getPrompt("Prints") . "</a>\n";
@@ -98,10 +120,6 @@ class MDSLeftMenu {
         echo $menu;
     }
 
-    
-
-    
-
     public function renderEmergencyLeftMenu($admission) {
 
         include_once 'MDSPatient.php';
@@ -115,16 +133,16 @@ class MDSLeftMenu {
             $menu .="<input type='button' class='submenuBtn' value='&laquo; " . getPrompt("Back to Ward") . "'  onclick=window.history.back();>\n";
         }
         $menu .="<input type='button' class='submenuBtn' value='&laquo; " . getPrompt("Patient Overview") . "'  onclick=self.document.location='home.php?page=patient&PID=" . $admission->getValue("PID") . "&action=View'>\n";
-      
+
         $menu .= $this->addEmergencyCommand($admission, 'emergency_complaints', 'Add Presenting Complaints');
-        
+
         if ($_SESSION["UGID"] != 10) {
             if (!$patient->haveAnyOpenedAdmission($admission->getValue("PID"))) {
                 $menu .="<input type='button' class='submenuBtn' value='" . getPrompt("Refer to Admission") . "' onclick=self.document.location='home.php?page=admission&action=New&PID=" . $admission->getValue("PID") . "&PCUID=" . $admission->getValue("PCUID") . "'>\n";
             }
             $menu .= $this->addPatientHistoryCommand($admission, $admission->isOpened);
             $menu .= $this->addPatientAllergyCommand($admission, $admission->isOpened);
-            
+
             $menu .= $this->addPatientExamCommand($admission, 'patient_exam', 'Examination', $admission->isOpened);
             $menu .= $this->addAdmissionCommand($admission, 'admission_diagnosis', 'Add Running Diagnosis');
             $menu .= $this->addAdmissionCommand($admission, 'admission_diagnosis', 'Add Final Diagnosis');
@@ -192,12 +210,12 @@ class MDSLeftMenu {
         $menu .="<input type='button' class='submenuBtn' value='" . getPrompt("Drugs dosage'") . " onclick=loadDataTable('drugs_dosage','')>\n";
         $menu .="<input type='button' class='submenuBtn' value='" . getPrompt("Drugs frequency'") . " onclick=loadDataTable('drugs_frequency','')>\n";
 
-       // $menu .="<input type='button' class='submenuBtn' value='" . getPrompt("Canned text'") . " onclick=loadDataTable('CannedText','')>\n";
-      //  $menu .="<input type='button' class='submenuBtn' value='" . getPrompt("LabTest'") . " onclick=loadDataTable('LabTest','')>\n";
-       // $menu .="<input type='button' class='submenuBtn' value='" . getPrompt("Lab test group'") . " onclick=loadDataTable('labTestGroup','')>\n";
-       // $menu .="<input type='button' class='submenuBtn' value='" . getPrompt("Lab test department'") . " onclick=loadDataTable('labTestDepartment','')>\n";
-       // $menu .="<input type='button' class='submenuBtn' value='" . getPrompt("Wards'") . " onclick=loadDataTable('ward','')>\n";
-       // $menu .="<input type='button' class='submenuBtn' value='" . getPrompt("Questionnaires") . "' onclick=loadDataTable('quest_struct','')>\n";
+        // $menu .="<input type='button' class='submenuBtn' value='" . getPrompt("Canned text'") . " onclick=loadDataTable('CannedText','')>\n";
+        //  $menu .="<input type='button' class='submenuBtn' value='" . getPrompt("LabTest'") . " onclick=loadDataTable('LabTest','')>\n";
+        // $menu .="<input type='button' class='submenuBtn' value='" . getPrompt("Lab test group'") . " onclick=loadDataTable('labTestGroup','')>\n";
+        // $menu .="<input type='button' class='submenuBtn' value='" . getPrompt("Lab test department'") . " onclick=loadDataTable('labTestDepartment','')>\n";
+        // $menu .="<input type='button' class='submenuBtn' value='" . getPrompt("Wards'") . " onclick=loadDataTable('ward','')>\n";
+        // $menu .="<input type='button' class='submenuBtn' value='" . getPrompt("Questionnaires") . "' onclick=loadDataTable('quest_struct','')>\n";
         $menu .="</div> \n";
 
         $menu .="<a  class='LeftMenuItem'>Application Tables</a>\n";
@@ -395,13 +413,15 @@ class MDSLeftMenu {
         $menu_item .= "  value='" . getPrompt($text) . "' onclick=self.document.location='home.php?page=" . $table . "&EMRID=" . $episode->getID() . "&action=Edit'>\n";
         return $menu_item;
     }
-    
-       private function addEmergencyCommand($episode, $table, $text) {
+
+    private function addEmergencyCommand($episode, $table, $text) {
         $menu_item = "";
         $menu_item .= "<input type='button' class='submenuBtn'  ";
+        /*
         if (!$episode->isOpened) {
             $menu_item .= "style='color:#cccccc;cursor:not-allowed;'  disabled  ";
         }
+        */
         $menu_item .= "  value='" . getPrompt($text) . "' onclick=self.document.location='home.php?page=" . $table . "&EMRID=" . $episode->getID() . "&action=Edit'>\n";
         return $menu_item;
     }

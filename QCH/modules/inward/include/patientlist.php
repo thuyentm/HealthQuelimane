@@ -36,8 +36,8 @@ function loadDoctorMenu() {
 		$menu .="<div class='basic' style='float:left;'  id='list1a'> \n";
 			$menu .="<a>Commands</a>\n";
 			$menu .="<div>\n";
-			$menu .="<input type='button' class='submenuBtn' value='My OPD Patients'  onclick=self.document.location='home.php?page=patientlist&show=opdpatient'>\n";
-			$menu .="<input type='button' class='submenuBtn' value='My OPD lab Orders'  onclick=self.document.location='home.php?page=patientlist&show=labresult'>\n";
+			$menu .="<input type='button' class='submenuBtn' value='My Patients'  onclick=self.document.location='home.php?page=patientlist&show=opdpatient'>\n";
+			$menu .="<input type='button' class='submenuBtn' value='My Lab Orders'  onclick=self.document.location='home.php?page=patientlist&show=labresult'>\n";
 			$menu .="<input type='button' class='submenuBtn' value='My Prescribe Orders'  onclick=self.document.location='home.php?page=patientlist&show=presorder'>\n";
 			$menu .="</div>\n";
 	$menu .=" </div>\n";

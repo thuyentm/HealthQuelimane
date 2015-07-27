@@ -77,15 +77,26 @@ class MDSLeftMenu {
         $menu .="<div class='basic' style='float:left;'  id='list1a'> \n";
         $menu .="<a  href='#1'>" . getPrompt("Commands") . "</a>\n";
         $menu .="<div> \n";
-        $menu .="<input type='button' class='submenuBtn' value='" . getPrompt("Create a visit") . "' onclick=self.document.location='home.php?page=opd&action=new&PID=" . $patient->getValue("PID") . "'>\n";
-        if (!$patient->haveAnyOpenedAdmission()) {
-            $menu .="<input type='button' class='submenuBtn' value='" . getPrompt("Give an Admission") . "' onclick=self.document.location='home.php?page=admission&action=New&PID=" . $patient->getValue("PID") . "'>\n";
+        /* context-menu for each user */
+        switch ($_SESSION["UserGroup"]) {
+            case "OpdNurse":
+                $menu .= $this->addPatientExamCommand($patient, 'patient_exam', 'Add Examination', true);
+                $menu .= $this->addOPDCommand($patient, 'admission_treatment', 'Add Treatments');
+                $menu .= $this->addOPDCommand($patient,'nurse_note','Add Note');
+                break;
+            case "OpdDoctor":
+                $menu .="<input type='button' class='submenuBtn' value='" . getPrompt("Create a visit") . "' onclick=self.document.location='home.php?page=opd&action=new&PID=" . $patient->getValue("PID") . "'>\n";
+                if (!$patient->haveAnyOpenedAdmission()) {
+                    $menu .="<input type='button' class='submenuBtn' value='" . getPrompt("Give an Admission") . "' onclick=self.document.location='home.php?page=admission&action=New&PID=" . $patient->getValue("PID") . "'>\n";
+                }
+                $menu .= getAppointmentLink($patient->getValue("PID"));
+                $menu .= $this->addPatientHistoryCommand($patient);
+                $menu .= $this->addPatientAllergyCommand($patient);
+                $menu .= $this->addPatientExamCommand($patient, 'patient_exam', 'Examination', true);
+                $menu .= getAttachLink('patient', $patient->getValue("PID"));
+                break;
         }
-        $menu .= getAppointmentLink($patient->getValue("PID"));
-        $menu .= $this->addPatientHistoryCommand($patient);
-        $menu .= $this->addPatientAllergyCommand($patient);
-        $menu .= $this->addPatientExamCommand($patient, 'patient_exam', 'Examination', true);
-        $menu .= getAttachLink('patient', $patient->getValue("PID"));
+
         $menu .="</div> \n";
         $menu .="<a href='#2'>" . getPrompt("Prints") . "</a>\n";
         $menu .="<div> \n";
@@ -418,9 +429,12 @@ class MDSLeftMenu {
     private function addOPDCommand($episode, $table, $text) {
         $menu_item = "";
         $menu_item .= "<input type='button' class='submenuBtn'  ";
+        /*
         if (!$episode->isOpened) {
             $menu_item .= "style='color:#cccccc;cursor:not-allowed;'  disabled  ";
         }
+         * 
+         */
         $menu_item .= "  value='" . getPrompt($text) . "' onclick=self.document.location='home.php?page=" . $table . "&OPDID=" . $episode->getID() . "&action=Edit&PID=" . $episode->getValue("PID") . "' />\n";
         return $menu_item;
     }
